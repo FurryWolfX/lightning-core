@@ -4,6 +4,7 @@ import cors from "express-cors";
 import multer from "multer";
 import NodeBatis from "nodebatis";
 import path from "path";
+import md5 from "./util/md5";
 
 const app = express();
 
@@ -24,7 +25,12 @@ const storage = multer.diskStorage({
   },
   filename: function(req, file, cb) {
     // cb(null, file.originalname);
-    cb(null, new Date().getTime() + "-" + file.originalname);
+    let ext = file.originalname.split(".");
+    let extName = "";
+    if (ext.length > 1) {
+      extName = ext[ext.length - 1];
+    }
+    cb(null, md5(new Date().getTime() + "-" + file.originalname) + "." + extName);
   }
 });
 const upload = multer({
