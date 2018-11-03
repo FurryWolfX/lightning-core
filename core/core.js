@@ -20,10 +20,11 @@ app.use(express.static("public"));
 // 参考：https://blog.csdn.net/jishoujiang/article/details/80367683
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "../public/upload");
+    cb(null, path.resolve(__dirname, "../public/upload"));
   },
   filename: function(req, file, cb) {
-    cb(null, file.originalname);
+    // cb(null, file.originalname);
+    cb(null, new Date().getTime() + "-" + file.originalname);
   }
 });
 const upload = multer({
