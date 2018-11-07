@@ -1,5 +1,5 @@
 require("babel-register")({
-  presets: ["latest"],
+  presets: ["latest", "flow"],
   plugins: ["syntax-async-functions", "transform-regenerator", "babel-polyfill"]
 });
 
