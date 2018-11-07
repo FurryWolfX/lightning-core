@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "express-cors";
 import multer from "multer";
-import NodeBatis from "nodebatis";
+import NodeBatis from "@wolfx/nodebatis";
 import path from "path";
 import md5 from "./util/md5";
 
@@ -40,11 +40,11 @@ const upload = multer({
 const database = new NodeBatis(path.resolve(__dirname, "../yaml"), {
   debug: true,
   dialect: "mysql",
-  host: "127.0.0.1",
+  host: "192.168.1.22",
   port: 3306,
   database: "test",
   user: "root",
-  password: "haosql"
+  password: "junlian"
 });
 
 export { app, upload, database };
