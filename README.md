@@ -78,12 +78,21 @@ export { findByAge };
 
 #### 第三步：定义路由来接收请求，并返回结果
 
-在 `router` 中新建一个 `user.js` 文件，名字随意。
+在 `router` 中新建一个 `user.js` 文件，名字随意。路由用法与 express 框架一致。
 
 ```javascript
 import Lightning from "@wolfx/lightning";
 import { findByAge } from "../service/user";
 const app = Lightning.core.app;
+
+// 登录拦截例子
+app.all("/*", function(req, res, next) {
+  if (req.session.user) {
+    next();
+  } else {
+    res.redirect("/user/login"); // 将用户重定向到登录页面
+  }
+});
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
