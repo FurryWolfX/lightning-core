@@ -1,11 +1,11 @@
-import express from "express";
-import bodyParser from "body-parser";
-import cors from "express-cors";
-import multer from "multer";
-import NodeBatis from "@wolfx/nodebatis";
-import md5 from "./util/md5";
-import fs from "fs";
-import path from "path";
+const fs = require("fs");
+const path = require("path");
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("express-cors");
+const multer = require("multer");
+const NodeBatis = require("@wolfx/nodebatis");
+const md5 = require("./util/md5");
 
 let config = {
   cors: {
@@ -95,14 +95,20 @@ const setConfig = cfg => {
   });
 
   database = new NodeBatis(config.yaml, config.database);
-
-  // 读取路由文件
-  const routers = fs.readdirSync(config.routerDir);
-  routers.forEach(p => require(path.resolve(config.routerDir, p)));
 };
 
 const start = port => {
-  app.listen(port, () => console.log(`Server listening on port ${port}!`))
+  // 读取路由文件
+  const routers = fs.readdirSync(config.routerDir);
+  routers.forEach(p => require(path.resolve(config.routerDir, p)));
+  app.listen(port, () => console.log(`Server listening on port ${port}!`));
+  return { app, upload, database, config };
 };
 
-export { app, upload, database, setConfig, config, start };
+module.exports = {
+  setConfig,
+  start,
+  getState: function() {
+    return { app, upload, database, config };
+  }
+};

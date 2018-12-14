@@ -1,4 +1,4 @@
-import { database } from "../core/core";
+const { database } = require("../index");
 
 let findByAge = async () => {
   let result = await database.execute("test.findByAge", {
@@ -8,4 +8,4 @@ let findByAge = async () => {
   return result;
 };
 
-export { findByAge }
+module.exports = { findByAge };

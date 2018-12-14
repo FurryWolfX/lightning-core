@@ -1,4 +1,4 @@
-import { app, upload } from "../core/core";
+const { app, upload } = require("../index").core.getState();
 
 // single 文件上传
 app.post("/upload", upload.single("file"), (req, res, next) => {

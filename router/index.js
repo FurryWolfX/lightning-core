@@ -1,5 +1,7 @@
-import { app } from "../core/core";
-import { findByAge } from "../service/user";
+const Lightning = require("../index");
+const { findByAge } =  require("../service/user");
+
+const app = Lightning.core.getState().app;
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
