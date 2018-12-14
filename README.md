@@ -44,7 +44,7 @@ const path = require("path");
 Lightning.core.setConfig({
   database: {
     debug: true, // debug模式下将输出sql语句
-    dialect: "mysql", // 目前只支持mysql
+    dialect: "mysql", // 目前只支持mysql，需要单独安装（npm i mysql --save）
     host: "xxx.xxx.x.xxx",
     port: 3306,
     database: "xxx",
