@@ -6,9 +6,9 @@ Lightning.core.setConfig({
     dialect: "mysql",
     host: "192.168.1.22",
     port: 3306,
-    database: "node_aggregation",
+    database: "test",
     user: "root",
-    password: "junlian"
+    password: ""
   },
   storage: path.resolve(__dirname, "./public/upload"),
   yaml: path.resolve(__dirname, "./yaml"),

@@ -4,7 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("express-cors");
 const multer = require("multer");
-const NodeBatis = require("@wolfx/nodebatis");
+const NodeBatisLite = require("@wolfx/nodebatis-lite");
 const md5 = require("./util/md5");
 
 let config = {
@@ -22,7 +22,12 @@ let config = {
     port: null,
     database: "",
     user: "",
-    password: ""
+    password: "",
+    pool: {
+      minSize: 5,
+      maxSize: 20,
+      connectionLimit: 5
+    }
   }
 };
 
@@ -94,7 +99,7 @@ const setConfig = cfg => {
     storage: storage
   });
 
-  database = new NodeBatis(config.yaml, config.database);
+  database = new NodeBatisLite(config.yaml, config.database);
 };
 
 const start = port => {

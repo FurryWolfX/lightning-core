@@ -1,6 +1,6 @@
 ## 极简风格的 Web 服务端框架 Lightning
 
-坚持 SQL 一等公民的地位，使用了类似 Java 中 MyBatis 的设计。（感谢 nodebatis，本项目使用其 fork 版本，@wolfx/nodebatis）
+坚持 SQL 一等公民的地位，使用了类似 Java 中 MyBatis 的设计。（感谢 nodebatis，本项目使用其重构简化版本，@wolfx/nodebatis-lite）
 
 坚持约定大于配置的原则，使开发更简单。
 
@@ -49,7 +49,12 @@ Lightning.core.setConfig({
     port: 3306,
     database: "xxx",
     user: "xxx",
-    password: "xxxxxx"
+    password: "xxxxxx",
+    pool: {
+       minSize: 5,
+       maxSize: 20,
+       connectionLimit: 5
+    }
   },
   cors: {
     allowedOrigins: ["*"]
@@ -84,7 +89,7 @@ import Lightning from "@wolfx/lightning";
 const database = Lightning.core.getState().database;
 
 const findByAge = async () => {
-  const result = await database.execute("test.findByAge", {
+  const result = await database.query("test.findByAge", {
     age: 18
   });
   return result;
@@ -117,3 +122,7 @@ app.get("/test", async (req, res) => {
   res.send(await findByAge());
 });
 ```
+
+### nodebatis-lite 使用说明
+
+[传送门](https://www.npmjs.com/package/@wolfx/nodebatis-lite)
