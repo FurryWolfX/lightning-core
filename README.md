@@ -19,26 +19,7 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 
 ### 启动服务
 
-如需完整的 ES6 和 flow 支持
-
-```json
-{
-  "babel-plugin-syntax-async-functions": "^6.13.0",
-  "babel-plugin-transform-regenerator": "^6.26.0",
-  "babel-polyfill": "^6.26.0",
-  "babel-preset-env": "^1.7.0",
-  "babel-preset-flow": "^6.23.0",
-  "babel-register": "^6.26.0"
-}
-```
-
 ```javascript
-// 【推荐】如需完整的ES6支持，如import关键词
-require("babel-register")({
-  presets: ["env", "flow"],
-  plugins: ["syntax-async-functions", "transform-regenerator", "babel-polyfill"]
-});
-
 const Lightning = require("@wolfx/lightning");
 const path = require("path");
 Lightning.core.setConfig({
@@ -85,7 +66,7 @@ findByAge:
 在 `service` 中新建一个 `user.js` 文件，名字随意。
 
 ```javascript
-import Lightning from "@wolfx/lightning";
+const Lightning = require("@wolfx/lightning");
 const database = Lightning.core.getState().database;
 
 const findByAge = async () => {
@@ -103,8 +84,8 @@ export { findByAge };
 在 `router` 中新建一个 `user.js` 文件，名字随意。路由用法与 express 框架一致。
 
 ```javascript
-import Lightning from "@wolfx/lightning";
-import { findByAge } from "../service/user";
+const Lightning = require("@wolfx/lightning");
+const { findByAge } = require("../service/user");
 const app = Lightning.core.getState().app;
 
 // 登录拦截例子
