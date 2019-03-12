@@ -1,4 +1,4 @@
-const Lightning = require("../index");
+const Lightning = require("../..");
 const database = Lightning.core.getState().database;
 
 let findByAge = async () => {

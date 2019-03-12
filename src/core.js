@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("express-cors");
 const multer = require("multer");
 const NodeBatisLite = require("@wolfx/nodebatis-lite");
-const md5 = require("./util/md5");
+const md5 = require("./utils/md5");
 
 let config = {
   cors: {

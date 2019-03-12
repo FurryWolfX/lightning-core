@@ -1,4 +1,4 @@
-const Lightning = require("./index");
+const Lightning = require("..");
 const path = require("path");
 Lightning.core.setConfig({
   database: {
@@ -8,7 +8,7 @@ Lightning.core.setConfig({
     port: 3306,
     database: "test",
     user: "root",
-    password: ""
+    password: "junlian"
   },
   storage: path.resolve(__dirname, "./public/upload"),
   yaml: path.resolve(__dirname, "./yaml"),

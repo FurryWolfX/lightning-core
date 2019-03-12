@@ -1,4 +1,4 @@
-const Lightning = require("../index");
+const Lightning = require("../..");
 const { findByAge } =  require("../service/user");
 
 const app = Lightning.core.getState().app;
