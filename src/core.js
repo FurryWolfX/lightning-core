@@ -36,39 +36,39 @@ let app, storage, upload, database;
 const setConfig = cfg => {
   config = Object.assign(config, cfg);
   if (!config.storage) {
-    console.error("config.storage", "undefined");
+    console.error("config.storage is undefined");
     process.exit();
   }
   if (!config.yaml) {
-    console.error("config.yaml", "undefined");
+    console.error("config.yaml is undefined");
     process.exit();
   }
   if (!config.routerDir) {
-    console.error("config.routerDir", "undefined");
+    console.error("config.routerDir is undefined");
     process.exit();
   }
   if (!config.database.dialect) {
-    console.error("config.database.dialect", "undefined");
+    console.error("config.database.dialect is undefined");
     process.exit();
   }
   if (!config.database.host) {
-    console.error("config.database.host", "undefined");
+    console.error("config.database.host is undefined");
     process.exit();
   }
   if (!config.database.port) {
-    console.error("config.database.port", "undefined");
+    console.error("config.database.port is undefined");
     process.exit();
   }
   if (!config.database.database) {
-    console.error("config.database.database", "undefined");
+    console.error("config.database.database is undefined");
     process.exit();
   }
   if (!config.database.user) {
-    console.error("config.database.user", "undefined");
+    console.error("config.database.user is undefined");
     process.exit();
   }
   if (!config.database.password) {
-    console.error("config.database.password", "undefined");
+    console.error("config.database.password is undefined");
     process.exit();
   }
 
@@ -86,7 +86,6 @@ const setConfig = cfg => {
       cb(null, config.storage);
     },
     filename: function(req, file, cb) {
-      // cb(null, file.originalname);
       let ext = file.originalname.split(".");
       let extName = "";
       if (ext.length > 1) {
@@ -102,11 +101,16 @@ const setConfig = cfg => {
   database = new NodeBatisLite(config.yaml, config.database);
 };
 
-const start = port => {
-  // 读取路由文件
+const start = (port, callback) => {
   const routers = fs.readdirSync(config.routerDir);
   routers.forEach(p => require(path.resolve(config.routerDir, p)));
-  app.listen(port, () => console.log(`Server listening on port ${port}!`));
+  app.listen(port, () => {
+    if (typeof callback === "function") {
+      callback();
+    } else {
+      console.log(`Server listening on port ${port}!`);
+    }
+  });
   return { app, upload, database, config };
 };
 
