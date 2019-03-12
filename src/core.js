@@ -6,6 +6,7 @@ const cors = require("express-cors");
 const multer = require("multer");
 const NodeBatisLite = require("@wolfx/nodebatis-lite");
 const md5 = require("./utils/md5");
+const getIpArray = require("./utils/ip");
 
 let config = {
   cors: {
@@ -108,7 +109,7 @@ const start = (port, callback) => {
     if (typeof callback === "function") {
       callback();
     } else {
-      console.log(`Server listening on port ${port}!`);
+      console.log(`Server listening on http://${getIpArray()}:${port}!`);
     }
   });
   return { app, upload, database, config };
