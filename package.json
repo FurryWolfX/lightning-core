@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@wolfx/nodebatis-lite": "^1.0.1",
-    "body-parser": "latest",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-cors": "0.0.3",
     "multer": "^1.4.1"
