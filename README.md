@@ -4,6 +4,12 @@
 
 坚持约定大于配置的原则，使开发更简单。
 
+框架是在 Express 的基础上进行的拓展，目标是易于代码生成和 API 快速开发。需要配合 `lightning-template` 和 `lightning-generator` 一起使用效果最佳。
+
+关于 `lightning-template` 和 `lightning-generator` 可以在 Github 获取。
+
+目前作为公司内部使用，使用 MIT 开源协议。
+
 ### 项目结构
 
 Lightning 使用约定大于配置的理念。约定的结构如下：
