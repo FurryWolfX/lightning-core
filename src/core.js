@@ -5,8 +5,10 @@ const bodyParser = require("body-parser");
 const cors = require("express-cors");
 const multer = require("multer");
 const NodeBatisLite = require("@wolfx/nodebatis-lite");
+const responseTime = require("./middleware/response-time");
 const md5 = require("./utils/md5");
 const getIpArray = require("./utils/ip");
+const validate = require("./config-validator");
 
 let config = {
   cors: {
@@ -36,49 +38,22 @@ let app, storage, upload, database;
 
 const setConfig = cfg => {
   config = Object.assign(config, cfg);
-  if (!config.storage) {
-    console.error("config.storage is undefined");
-    process.exit();
-  }
-  if (!config.yaml) {
-    console.error("config.yaml is undefined");
-    process.exit();
-  }
-  if (!config.routerDir) {
-    console.error("config.routerDir is undefined");
-    process.exit();
-  }
-  if (!config.database.dialect) {
-    console.error("config.database.dialect is undefined");
-    process.exit();
-  }
-  if (!config.database.host) {
-    console.error("config.database.host is undefined");
-    process.exit();
-  }
-  if (!config.database.port) {
-    console.error("config.database.port is undefined");
-    process.exit();
-  }
-  if (!config.database.database) {
-    console.error("config.database.database is undefined");
-    process.exit();
-  }
-  if (!config.database.user) {
-    console.error("config.database.user is undefined");
-    process.exit();
-  }
-  if (!config.database.password) {
-    console.error("config.database.password is undefined");
-    process.exit();
-  }
+  validate(config);
 
   app = express();
-
   app.use(cors(config.cors));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(express.static(config.static));
+  app.use(
+    responseTime((method, url, time) => {
+      if (typeof config.responseLogCallback === "function") {
+        config.responseLogCallback(method, url, time);
+      } else {
+        console.log(`${method} ${url} ${time}ms`);
+      }
+    })
+  );
 
   // 文件上传
   // 参考：https://blog.csdn.net/jishoujiang/article/details/80367683
