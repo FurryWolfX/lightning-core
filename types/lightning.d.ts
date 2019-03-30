@@ -25,10 +25,12 @@ export interface LightningState {
 export interface LightningCore {
   setConfig(cfg: LightningConfig): void;
 
-  start(port: number, callback: Function): void;
+  start(port: number, callback?: Function): void;
 
   getState(): LightningState
 }
+
+export var core: LightningCore;
 
 export default class Lightning {
   static core: LightningCore;

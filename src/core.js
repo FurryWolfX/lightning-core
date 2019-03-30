@@ -82,7 +82,7 @@ const start = (port, callback) => {
   routers.forEach(p => require(path.resolve(config.routerDir, p)));
   app.listen(port, () => {
     if (typeof callback === "function") {
-      callback();
+      callback(getIpArray(), port);
     } else {
       console.log(`Server listening on http://${getIpArray()}:${port}!`);
     }
