@@ -9,6 +9,7 @@ export interface LightningCorsConfig {
 export interface LightningConfig {
   database: NodeBatisLiteConfig;
   cors: LightningCorsConfig;
+  responseLogCallback: Function;
   storage: string;
   yaml: string;
   routerDir: string;
