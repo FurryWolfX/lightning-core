@@ -4,6 +4,12 @@
 
 坚持约定大于配置的原则，使开发更简单。
 
+框架是在 Express 的基础上进行的拓展，目标是易于代码生成和 API 快速开发。需要配合 `lightning-template` 和 `lightning-generator` 一起使用效果最佳。
+
+关于 `lightning-template` 和 `lightning-generator` 可以在 Github 获取。
+
+目前作为公司内部使用，使用 MIT 开源协议。
+
 ### 项目结构
 
 Lightning 使用约定大于配置的理念。约定的结构如下：
@@ -23,22 +29,32 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 const Lightning = require("@wolfx/lightning");
 const path = require("path");
 Lightning.core.setConfig({
+  // database 更多的配置可以参考NodeBatisLite的文档
   database: {
     debug: true, // debug模式下将输出sql语句
+    debugCallback: (key, sql, params) => {
+      // 这里可以接入log4js等
+      // 使用debugCallback后debug不会输出log，需要在回调中自己处理
+    },
     dialect: "mysql", // 目前只支持mysql，需要单独安装（npm i mysql --save）
     host: "xxx.xxx.x.xxx",
     port: 3306,
     database: "xxx",
     user: "xxx",
     password: "xxxxxx",
+    camelCase: true, // 是否使用驼峰参数和返回结果
     pool: {
-       minSize: 5,
-       maxSize: 20,
-       connectionLimit: 5
+      minSize: 5,
+      maxSize: 20,
+      connectionLimit: 5
     }
   },
   cors: {
     allowedOrigins: ["*"]
+  },
+  responseLogCallback: (method, url, time) => {
+    // 用于监控请求响应时间
+    console.log(`${method} ${url} ${time}ms`);
   },
   storage: path.resolve(__dirname, "./public/upload"), // 文件上传路径，public为默认的静态资源路径
   yaml: path.resolve(__dirname, "./yaml"), // yml sql 文件夹
