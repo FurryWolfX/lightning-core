@@ -16,7 +16,7 @@
     "node": ">= 8.11.0"
   },
   "dependencies": {
-    "@wolfx/nodebatis-lite": "^1.0.8",
+    "@wolfx/nodebatis-lite": "^1.0.9",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-cors": "0.0.3",
