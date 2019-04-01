@@ -2,7 +2,7 @@
   "name": "@wolfx/lightning",
   "description": "fast web framework",
   "author": "wolfx",
-  "version": "1.2.10",
+  "version": "1.2.11",
   "license": "MIT",
   "main": "index.js",
   "typings": "types/lightning.d.ts",
@@ -16,7 +16,7 @@
     "node": ">= 8.11.0"
   },
   "dependencies": {
-    "@wolfx/nodebatis-lite": "^1.0.9",
+    "@wolfx/nodebatis-lite": "^1.1.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-cors": "0.0.3",
