@@ -52,6 +52,9 @@ Lightning.core.setConfig({
   cors: {
     allowedOrigins: ["*"]
   },
+  requestLogCallback: (method, url) => {
+    console.log(`${method} ${url}`);
+  },
   responseLogCallback: (method, url, time) => {
     // 用于监控请求响应时间
     console.log(`${method} ${url} ${time}ms`);

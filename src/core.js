@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const cors = require("express-cors");
 const multer = require("multer");
 const NodeBatisLite = require("@wolfx/nodebatis-lite");
@@ -35,25 +36,35 @@ let config = {
 };
 
 let app, storage, upload, database;
+let isStarted = false;
 
 const setConfig = cfg => {
   config = Object.assign(config, cfg);
   validate(config);
-
   app = express();
   app.use(cors(config.cors));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(cookieParser());
   app.use(express.static(config.static));
   app.use(
     responseTime((method, url, time) => {
       if (typeof config.responseLogCallback === "function") {
         config.responseLogCallback(method, url, time);
       } else {
-        console.log(`${method} ${url} ${time}ms`);
+        console.log(`[S] ${method} ${url} ${time}ms`);
       }
     })
   );
+
+  app.all("*", (req, res, next) => {
+    if (typeof config.requestLogCallback === "function") {
+      config.requestLogCallback(req.method, req.url);
+    } else {
+      console.log(`[R] ${req.method} ${req.url}`);
+    }
+    next();
+  });
 
   // 文件上传
   // 参考：https://blog.csdn.net/jishoujiang/article/details/80367683
@@ -83,16 +94,21 @@ const setConfig = cfg => {
 };
 
 const start = (port, callback) => {
-  const routers = fs.readdirSync(config.routerDir);
-  routers.forEach(p => require(path.resolve(config.routerDir, p)));
-  app.listen(port, () => {
-    const ipArray = getIpArray();
-    if (typeof callback === "function") {
-      callback(ipArray);
-    } else {
-      ipArray.forEach(ip => console.log(`Lightning Server listening on http://${ip}:${port}!`));
-    }
-  });
+  if (isStarted === false) {
+    const routers = fs.readdirSync(config.routerDir);
+    routers.forEach(p => require(path.resolve(config.routerDir, p)));
+    app.listen(port, () => {
+      isStarted = true;
+      const ipArray = getIpArray();
+      if (typeof callback === "function") {
+        callback(ipArray);
+      } else {
+        ipArray.forEach(ip => console.log(`Lightning Server listening on http://${ip}:${port}!`));
+      }
+    });
+  } else {
+    console.warn("Lightning Server has been started");
+  }
   return { app, upload, database, config };
 };
 
