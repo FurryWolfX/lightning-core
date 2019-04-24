@@ -74,17 +74,23 @@ const setConfig = cfg => {
     storage: storage
   });
 
-  database = new NodeBatisLite(config.yaml, config.database);
+  if (config.database === false) {
+    // 不启用数据库
+    database = null;
+  } else {
+    database = new NodeBatisLite(config.yaml, config.database);
+  }
 };
 
 const start = (port, callback) => {
   const routers = fs.readdirSync(config.routerDir);
   routers.forEach(p => require(path.resolve(config.routerDir, p)));
   app.listen(port, () => {
+    const ipArray = getIpArray();
     if (typeof callback === "function") {
-      callback(getIpArray(), port);
+      callback(ipArray);
     } else {
-      console.log(`Server listening on http://${getIpArray()}:${port}!`);
+      ipArray.forEach(ip => console.log(`Lightning Server listening on http://${ip}:${port}!`));
     }
   });
   return { app, upload, database, config };

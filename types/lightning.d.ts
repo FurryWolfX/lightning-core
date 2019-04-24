@@ -3,11 +3,11 @@ import { Application } from "express";
 import { Instance as MulterInstance } from "multer";
 
 export interface LightningCorsConfig {
-  allowedOrigins: Array<string>
+  allowedOrigins: Array<string>;
 }
 
 export interface LightningConfig {
-  database: NodeBatisLiteConfig;
+  database: NodeBatisLiteConfig | boolean;
   cors: LightningCorsConfig;
   responseLogCallback: Function;
   storage: string;
@@ -27,7 +27,7 @@ export interface LightningCore {
 
   start(port: number, callback?: Function): void;
 
-  getState(): LightningState
+  getState(): LightningState;
 }
 
 export var core: LightningCore;

@@ -60,7 +60,7 @@ Lightning.core.setConfig({
   yaml: path.resolve(__dirname, "./yaml"), // yml sql 文件夹
   routerDir: path.resolve(__dirname, "./router") // 路由文件夹
 });
-Lightning.core.start(3001, (ip, port) => {});
+Lightning.core.start(3001, ipArray => {});
 ```
 
 ### 从一个简单的查询开始
