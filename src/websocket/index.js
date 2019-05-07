@@ -10,14 +10,13 @@ let heartbeatInterval = null;
  * @param wsPort
  * @returns {*}
  */
-function initWebsocket(config, wsPort) {
+function initWebsocket(config, wsPort, callback) {
   if (!config) {
     return console.error("config.websocket is undefined");
   }
   if (server !== null) {
     console.warn("ws server has been started, don't init again");
   } else {
-    console.log("[Lightning] initWebsocket");
     const ws = require("nodejs-websocket"); // 懒加载
     server = ws.createServer(conn => {
       console.log("ws key", conn.key);
@@ -41,7 +40,7 @@ function initWebsocket(config, wsPort) {
     });
 
     server.listen(wsPort, () => {
-      console.log("[Lightning] websocket server has been started successfully on port " + wsPort);
+      callback();
     });
 
     if (heartbeatInterval) {
@@ -65,13 +64,14 @@ function initWebsocket(config, wsPort) {
 
 module.exports.start = function(wsPort, callback) {
   const config = core.getState().config;
-  initWebsocket(config.websocket, wsPort);
-  const ipArray = getIpArray();
-  if (typeof callback === "function") {
-    callback(ipArray);
-  } else {
-    ipArray.forEach(ip => console.log(`Lightning Websocket Server listening on ws://${ip}:${wsPort}!`));
-  }
+  initWebsocket(config.websocket, wsPort, () => {
+    const ipArray = getIpArray();
+    if (typeof callback === "function") {
+      callback(ipArray);
+    } else {
+      ipArray.forEach(ip => console.log(`[Lightning] Lightning Websocket Server listening on ws://${ip}:${wsPort}!`));
+    }
+  });
 };
 
 module.exports.getState = function() {
