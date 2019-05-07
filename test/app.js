@@ -1,4 +1,4 @@
-const Lightning = require("..");
+const Lightning = require("../index");
 const path = require("path");
 Lightning.core.setConfig({
   database: {

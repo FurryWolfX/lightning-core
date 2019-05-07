@@ -1,96 +1,25 @@
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const cors = require("express-cors");
-const multer = require("multer");
-const NodeBatisLite = require("@wolfx/nodebatis-lite");
-const responseTime = require("./middleware/response-time");
-const md5 = require("./utils/md5");
+
 const getIpArray = require("./utils/ip");
 const validate = require("./config-validator");
+const { getDatabase } = require("./database");
+const { getUpload } = require("./upload");
+const applyMiddleware = require("./config-middleware");
+const defaultConfig = require("./config-default");
 
-let config = {
-  cors: {
-    allowedOrigins: ["*"]
-  },
-  static: "public",
-  storage: "",
-  yaml: "",
-  routerDir: "",
-  database: {
-    debug: true,
-    dialect: "",
-    host: "",
-    port: null,
-    database: "",
-    user: "",
-    password: "",
-    pool: {
-      minSize: 5,
-      maxSize: 20,
-      connectionLimit: 5
-    }
-  }
-};
-
-let app, storage, upload, database;
+let app, upload, database;
 let isStarted = false;
+let config = {};
 
 const setConfig = cfg => {
-  config = Object.assign(config, cfg);
-  validate(config);
+  config = Object.assign(defaultConfig, cfg);
   app = express();
-  app.use(cors(config.cors));
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(cookieParser());
-  app.use(express.static(config.static));
-  app.use(
-    responseTime((method, url, time) => {
-      if (typeof config.responseLogCallback === "function") {
-        config.responseLogCallback(method, url, time);
-      } else {
-        console.log(`[S] ${method} ${url} ${time}ms`);
-      }
-    })
-  );
-
-  app.all("*", (req, res, next) => {
-    if (typeof config.requestLogCallback === "function") {
-      config.requestLogCallback(req.method, req.url);
-    } else {
-      console.log(`[R] ${req.method} ${req.url}`);
-    }
-    next();
-  });
-
-  // 文件上传
-  // 参考：https://blog.csdn.net/jishoujiang/article/details/80367683
-  storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-      cb(null, config.storage);
-    },
-    filename: function(req, file, cb) {
-      let ext = file.originalname.split(".");
-      let extName = "";
-      if (ext.length > 1) {
-        extName = ext[ext.length - 1];
-      }
-      cb(null, md5(new Date().getTime() + "-" + file.originalname) + "." + extName);
-    }
-  });
-  upload = multer({
-    storage: storage
-  });
-
-  if (config.database === false) {
-    // 不启用数据库
-    database = null;
-  } else {
-    database = new NodeBatisLite(config.yaml, config.database);
-  }
+  validate(config);
+  applyMiddleware(app, config);
+  upload = getUpload(config);
+  database = getDatabase(config);
 };
 
 const start = (port, callback) => {
@@ -115,7 +44,7 @@ const start = (port, callback) => {
 module.exports = {
   setConfig,
   start,
-  getState: function() {
+  getState: () => {
     return { app, upload, database, config };
   }
 };
