@@ -8,12 +8,10 @@ const { getDatabase } = require("./database");
 const { getUpload } = require("./upload");
 const applyMiddleware = require("./config-middleware");
 const defaultConfig = require("./config-default");
-const { initWebsocket } = require("./websocket/ws");
 
 let app, upload, database;
 let isStarted = false;
 let config = {};
-let websocketServer = null;
 
 const setConfig = cfg => {
   config = Object.assign(defaultConfig, cfg);
@@ -22,15 +20,14 @@ const setConfig = cfg => {
   applyMiddleware(app, config);
   upload = getUpload(config);
   database = getDatabase(config);
-  websocketServer = initWebsocket(config.websocket);
 };
 
 const start = (port, callback) => {
   if (isStarted === false) {
+    isStarted = true;
     const routers = fs.readdirSync(config.routerDir);
     routers.forEach(p => require(path.resolve(config.routerDir, p)));
     app.listen(port, () => {
-      isStarted = true;
       const ipArray = getIpArray();
       if (typeof callback === "function") {
         callback(ipArray);
@@ -48,6 +45,6 @@ module.exports = {
   setConfig,
   start,
   getState: () => {
-    return { app, upload, database, websocketServer, config };
+    return { app, upload, database, config };
   }
 };

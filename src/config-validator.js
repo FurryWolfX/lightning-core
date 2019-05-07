@@ -43,10 +43,6 @@ const validate = config => {
     }
   }
   if (config.websocket) {
-    if (!config.websocket.wsPort) {
-      console.error("config.websocket.wsPort is undefined");
-      process.exit();
-    }
     if (!config.websocket.heartbeatTimeout) {
       console.error("config.websocket.heartbeatTimeout is undefined");
       process.exit();

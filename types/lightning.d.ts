@@ -1,14 +1,13 @@
 import NodeBatisLite, { NodeBatisLiteConfig } from "@wolfx/nodebatis-lite";
 import { Application } from "express";
 import { Instance as MulterInstance } from "multer";
-import { Ws } from "./nodejs-websocket";
+import { Server } from "./nodejs-websocket";
 
 export interface LightningCorsConfig {
   allowedOrigins: Array<string>;
 }
 
 export interface LightningWebsocketConfig {
-  wsPort: number;
   wsLimit?: number;
   heartbeatTimeout: number;
   onConnected?: Function;
@@ -32,20 +31,28 @@ export interface LightningState {
   app: Application;
   upload: MulterInstance;
   database: NodeBatisLite;
-  websocketServer: Ws;
   config: LightningConfig;
+}
+
+export interface LightningWebsocketState {
+  server: Server
+}
+
+export interface LightningWebsocket {
+  start(port: number, callback?: Function): void;
+  getState(): LightningWebsocketState;
 }
 
 export interface LightningCore {
   setConfig(cfg: LightningConfig): void;
-
   start(port: number, callback?: Function): void;
-
   getState(): LightningState;
 }
 
 export const core: LightningCore;
+export const websocket: LightningWebsocket;
 
 export default class Lightning {
   static core: LightningCore;
+  static websocket: LightningWebsocket;
 }

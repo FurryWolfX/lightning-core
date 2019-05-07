@@ -1,15 +1,18 @@
 const limitControl = require("./limitControl");
+const core = require("../core");
+const getIpArray = require("../utils/ip");
 
 let server = null;
 let heartbeatInterval = null;
 
 /**
  * @param {LightningWebsocketConfig} config
+ * @param wsPort
  * @returns {*}
  */
-module.exports.initWebsocket = function(config) {
+function initWebsocket(config, wsPort) {
   if (!config) {
-    return null;
+    return console.error("config.websocket is undefined");
   }
   if (server !== null) {
     console.warn("ws server has been started, don't init again");
@@ -37,8 +40,8 @@ module.exports.initWebsocket = function(config) {
       });
     });
 
-    server.listen(config.wsPort, () => {
-      console.log("[Lightning] websocket server has been started successfully on port " + config.wsPort);
+    server.listen(wsPort, () => {
+      console.log("[Lightning] websocket server has been started successfully on port " + wsPort);
     });
 
     if (heartbeatInterval) {
@@ -58,5 +61,19 @@ module.exports.initWebsocket = function(config) {
       });
     }, config.heartbeatTimeout);
   }
-  return server;
+}
+
+module.exports.start = function(wsPort, callback) {
+  const config = core.getState().config;
+  initWebsocket(config.websocket, wsPort);
+  const ipArray = getIpArray();
+  if (typeof callback === "function") {
+    callback(ipArray);
+  } else {
+    ipArray.forEach(ip => console.log(`Lightning Websocket Server listening on ws://${ip}:${wsPort}!`));
+  }
+};
+
+module.exports.getState = function() {
+  return { server };
 };
