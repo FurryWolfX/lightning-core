@@ -1,6 +1,6 @@
 const Lightning = require("../index");
 const path = require("path");
-Lightning.core.setConfig({
+Lightning.setConfig({
   // database: {
   //   debug: true,
   //   dialect: "mysql",

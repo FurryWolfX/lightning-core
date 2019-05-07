@@ -35,7 +35,7 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 ```javascript
 const Lightning = require("@wolfx/lightning");
 const path = require("path");
-Lightning.core.setConfig({
+Lightning.setConfig({
   database: {
     // 如果不需要连接数据库，这里可以设置为false
     // database 更多的配置可以参考NodeBatisLite的文档
@@ -73,31 +73,9 @@ Lightning.core.setConfig({
   routerDir: path.resolve(__dirname, "./router") // 路由文件夹
 });
 Lightning.core.start(3001);
-```
 
-### 可选：配置 websocket 服务
-
-```bash
-# 需要额外安装 nodejs-websocket
-npm i nodejs-websocket --save
-```
-
-```javascript
-Lightning.core.setConfig({
-  database: {
-    //...
-  },
-  websocket: {
-    wsPort: 3002,
-    wsLimit: 1000,
-    heartbeatTimeout: 6000,
-    onConnected: conn => {},
-    onText: (str, conn) => {},
-    onClose: (code, reason, conn) => {},
-    onError: (code, reason, conn) => {}
-  },
-  //...
-});
+// 获取运行状态
+const { app, database, upload } = Lightning.core.getState();
 ```
 
 ### 从一个简单的查询开始
@@ -160,3 +138,42 @@ app.get("/test", async (req, res) => {
 ### nodebatis-lite 使用说明
 
 [传送门](https://www.npmjs.com/package/@wolfx/nodebatis-lite)
+
+### 文件上传示例
+
+```javascript
+const { app, upload } = Lightning.core.getState();
+// single 文件上传
+app.post("/upload", upload.single("file"), (req, res, next) => {
+  // console.log("file:" + req.file.originalname);
+  // console.log(res);
+  // const url = "http://" + req.headers.host + "/upload/" + req.file.filename;
+  res.end(req.file.filename);
+});
+```
+
+### 可选：配置 websocket 服务
+
+```bash
+# 需要额外安装 nodejs-websocket
+npm i nodejs-websocket --save
+```
+
+```javascript
+Lightning.setConfig({
+  database: {
+    //...
+  },
+  websocket: {
+    wsLimit: 1000,
+    heartbeatTimeout: 6000,
+    onConnected: conn => {},
+    onText: (str, conn) => {},
+    onClose: (code, reason, conn) => {},
+    onError: (code, reason, conn) => {}
+  }
+  //...
+});
+
+Lightning.websocket.start(3002);
+```

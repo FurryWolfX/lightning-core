@@ -17,8 +17,8 @@ export interface LightningWebsocketConfig {
 }
 
 export interface LightningConfig {
-  database: NodeBatisLiteConfig | boolean;
-  websocket: LightningWebsocketConfig | boolean;
+  database?: NodeBatisLiteConfig | boolean;
+  websocket?: LightningWebsocketConfig | boolean;
   cors: LightningCorsConfig;
   responseLogCallback(method, url, time): void;
   requestLogCallback(method, url): void;
@@ -49,10 +49,12 @@ export interface LightningCore {
   getState(): LightningState;
 }
 
+export function setConfig(cfg: LightningConfig): void;
 export const core: LightningCore;
 export const websocket: LightningWebsocket;
 
 export default class Lightning {
+  static setConfig(cfg: LightningConfig): void;
   static core: LightningCore;
   static websocket: LightningWebsocket;
 }
