@@ -6,20 +6,8 @@ const defaultConfig = {
   storage: "",
   yaml: "",
   routerDir: "",
-  database: {
-    debug: true,
-    dialect: "",
-    host: "",
-    port: null,
-    database: "",
-    user: "",
-    password: "",
-    pool: {
-      minSize: 5,
-      maxSize: 20,
-      connectionLimit: 5
-    }
-  }
+  database: null,
+  websocket: null
 };
 
 module.exports = defaultConfig;

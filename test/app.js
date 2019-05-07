@@ -10,6 +10,15 @@ Lightning.core.setConfig({
     user: "root",
     password: "junlian"
   },
+  websocket: {
+    wsPort: 3002,
+    wsLimit: 1000,
+    heartbeatTimeout: 6000,
+    onConnected: conn => {},
+    onText: (str, conn) => {},
+    onClose: (code, reason, conn) => {},
+    onError: (code, reason, conn) => {}
+  },
   storage: path.resolve(__dirname, "./public/upload"),
   yaml: path.resolve(__dirname, "./yaml"),
   routerDir: path.resolve(__dirname, "./router")

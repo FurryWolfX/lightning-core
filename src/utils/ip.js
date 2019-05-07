@@ -1,4 +1,8 @@
 const os = require("os");
+
+/**
+ * @returns {Array}
+ */
 const getIpArray = () => {
   const ipConfig = os.networkInterfaces();
   const ipArray = [];

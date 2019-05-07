@@ -430,6 +430,11 @@ negotiator@0.6.1:
   resolved "https://registry.npm.taobao.org/negotiator/download/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
   integrity sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=
 
+nodejs-websocket@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.npm.taobao.org/nodejs-websocket/download/nodejs-websocket-1.7.2.tgz#94abd1e248f57d4d1c663dec3831015c6dad98a6"
+  integrity sha1-lKvR4kj1fU0cZj3sODEBXG2tmKY=
+
 object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.npm.taobao.org/object-assign/download/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"

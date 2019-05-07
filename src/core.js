@@ -8,10 +8,12 @@ const { getDatabase } = require("./database");
 const { getUpload } = require("./upload");
 const applyMiddleware = require("./config-middleware");
 const defaultConfig = require("./config-default");
+const { initWebsocket } = require("./websocket/ws");
 
 let app, upload, database;
 let isStarted = false;
 let config = {};
+let websocketServer = null;
 
 const setConfig = cfg => {
   config = Object.assign(defaultConfig, cfg);
@@ -20,6 +22,7 @@ const setConfig = cfg => {
   applyMiddleware(app, config);
   upload = getUpload(config);
   database = getDatabase(config);
+  websocketServer = initWebsocket(config.websocket);
 };
 
 const start = (port, callback) => {
@@ -45,6 +48,6 @@ module.exports = {
   setConfig,
   start,
   getState: () => {
-    return { app, upload, database, config };
+    return { app, upload, database, websocketServer, config };
   }
 };

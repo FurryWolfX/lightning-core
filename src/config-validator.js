@@ -1,3 +1,7 @@
+/**
+ * @description 验证设置
+ * @param {LightningConfig} config
+ */
 const validate = config => {
   if (!config.storage) {
     console.error("config.storage is undefined");
@@ -35,6 +39,32 @@ const validate = config => {
     }
     if (!config.database.password) {
       console.error("config.database.password is undefined");
+      process.exit();
+    }
+  }
+  if (config.websocket) {
+    if (!config.websocket.wsPort) {
+      console.error("config.websocket.wsPort is undefined");
+      process.exit();
+    }
+    if (!config.websocket.heartbeatTimeout) {
+      console.error("config.websocket.heartbeatTimeout is undefined");
+      process.exit();
+    }
+    if (!config.websocket.onConnected) {
+      console.error("config.websocket.onConnected is undefined");
+      process.exit();
+    }
+    if (!config.websocket.onClose) {
+      console.error("config.websocket.onError is undefined");
+      process.exit();
+    }
+    if (!config.websocket.onError) {
+      console.error("config.websocket.onError is undefined");
+      process.exit();
+    }
+    if (!config.websocket.onText) {
+      console.error("config.websocket.onText is undefined");
       process.exit();
     }
   }

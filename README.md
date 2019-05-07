@@ -10,6 +10,13 @@
 
 目前作为公司内部使用，使用 MIT 开源协议。
 
+### 安装
+
+```bash
+# 需要额外安装 mysql
+npm i @wolfx/lightning mysql --save
+```
+
 ### 项目结构
 
 Lightning 使用约定大于配置的理念。约定的结构如下：
@@ -29,8 +36,9 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 const Lightning = require("@wolfx/lightning");
 const path = require("path");
 Lightning.core.setConfig({
-  // database 更多的配置可以参考NodeBatisLite的文档
   database: {
+    // 如果不需要连接数据库，这里可以设置为false
+    // database 更多的配置可以参考NodeBatisLite的文档
     debug: true, // debug模式下将输出sql语句
     debugCallback: (key, sql, params) => {
       // 这里可以接入log4js等
@@ -53,17 +61,43 @@ Lightning.core.setConfig({
     allowedOrigins: ["*"]
   },
   requestLogCallback: (method, url) => {
+    // 请求日志
     console.log(`${method} ${url}`);
   },
   responseLogCallback: (method, url, time) => {
-    // 用于监控请求响应时间
+    // 响应日志，可获得响应时间，用于性能分析
     console.log(`${method} ${url} ${time}ms`);
   },
   storage: path.resolve(__dirname, "./public/upload"), // 文件上传路径，public为默认的静态资源路径
   yaml: path.resolve(__dirname, "./yaml"), // yml sql 文件夹
   routerDir: path.resolve(__dirname, "./router") // 路由文件夹
 });
-Lightning.core.start(3001, ipArray => {});
+Lightning.core.start(3001);
+```
+
+### 可选：配置 websocket 服务
+
+```bash
+# 需要额外安装 nodejs-websocket
+npm i nodejs-websocket --save
+```
+
+```javascript
+Lightning.core.setConfig({
+  database: {
+    //...
+  },
+  websocket: {
+    wsPort: 3002,
+    wsLimit: 1000,
+    heartbeatTimeout: 6000,
+    onConnected: conn => {},
+    onText: (str, conn) => {},
+    onClose: (code, reason, conn) => {},
+    onError: (code, reason, conn) => {}
+  },
+  //...
+});
 ```
 
 ### 从一个简单的查询开始
