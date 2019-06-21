@@ -1,5 +1,0 @@
-namespace: 'test'
-
-findByAge:
-  - select name, age from user where
-  - age > :age

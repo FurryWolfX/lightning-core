@@ -1,4 +1,3 @@
-import NodeBatisLite, { NodeBatisLiteConfig } from "@wolfx/nodebatis-lite";
 import { Application } from "express";
 import { Instance as MulterInstance } from "multer";
 import { Server } from "./nodejs-websocket";
@@ -17,20 +16,17 @@ export interface LightningWebsocketConfig {
 }
 
 export interface LightningConfig {
-  database?: NodeBatisLiteConfig | boolean;
   websocket?: LightningWebsocketConfig | boolean;
   cors: LightningCorsConfig;
   responseLogCallback(method, url, time): void;
   requestLogCallback(method, url): void;
   storage: string;
-  yaml: string;
   routerDir: string;
 }
 
 export interface LightningState {
   app: Application;
   upload: MulterInstance;
-  database: NodeBatisLite;
   config: LightningConfig;
 }
 

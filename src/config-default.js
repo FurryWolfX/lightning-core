@@ -4,9 +4,7 @@ const defaultConfig = {
   },
   static: "public",
   storage: "",
-  yaml: "",
   routerDir: "",
-  database: null,
   websocket: null
 };
 

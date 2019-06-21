@@ -4,12 +4,11 @@ const express = require("express");
 
 const getIpArray = require("./utils/ip");
 const validate = require("./config-validator");
-const { getDatabase } = require("./database");
 const { getUpload } = require("./upload");
 const applyMiddleware = require("./config-middleware");
 const defaultConfig = require("./config-default");
 
-let app, upload, database;
+let app, upload;
 let isStarted = false;
 let config = {};
 
@@ -19,7 +18,6 @@ const setConfig = cfg => {
   validate(config);
   applyMiddleware(app, config);
   upload = getUpload(config);
-  database = getDatabase(config);
 };
 
 const start = (port, callback) => {
@@ -38,13 +36,13 @@ const start = (port, callback) => {
   } else {
     console.warn("Lightning Server has been started");
   }
-  return { app, upload, database, config };
+  return { app, upload, config };
 };
 
 module.exports = {
   setConfig,
   start,
   getState: () => {
-    return { app, upload, database, config };
+    return { app, upload, config };
   }
 };
