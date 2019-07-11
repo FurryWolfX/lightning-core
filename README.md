@@ -106,9 +106,6 @@ npm i nodejs-websocket --save
 
 ```javascript
 Lightning.setConfig({
-  database: {
-    //...
-  },
   websocket: {
     wsLimit: 1000,
     heartbeatTimeout: 6000,
