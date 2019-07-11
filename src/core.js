@@ -1,12 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
+const _ = require("lodash");
 
 const getIpArray = require("./utils/ip");
 const validate = require("./config-validator");
 const { getUpload } = require("./upload");
 const applyMiddleware = require("./config-middleware");
 const defaultConfig = require("./config-default");
+const readFileList = require("./utils/readFileList");
 
 let app, upload;
 let isStarted = false;
@@ -23,8 +25,13 @@ const setConfig = cfg => {
 const start = (port, callback) => {
   if (isStarted === false) {
     isStarted = true;
-    const routers = fs.readdirSync(config.routerDir);
-    routers.forEach(p => require(path.resolve(config.routerDir, p)));
+    const routers = _.sortBy(readFileList(config.routerDir), po => {
+      if (po.filename === "index.js") {
+        // index.js 放第一路由
+        return -1;
+      }
+    });
+    routers.forEach(po => require(po.path));
     app.listen(port, () => {
       const ipArray = getIpArray();
       if (typeof callback === "function") {
