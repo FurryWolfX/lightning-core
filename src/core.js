@@ -31,7 +31,10 @@ const start = (port, callback) => {
         return -1;
       }
     });
-    routers.forEach(po => require(po.path));
+    routers.forEach(po => {
+      console.log("init router", po.path + "/" + po.filename);
+      require(po.path + "/" + po.filename);
+    });
     app.listen(port, () => {
       const ipArray = getIpArray();
       if (typeof callback === "function") {

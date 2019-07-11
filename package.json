@@ -2,7 +2,7 @@
   "name": "@wolfx/lightning",
   "description": "fast web framework",
   "author": "wolfx",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "license": "MIT",
   "main": "index.js",
   "typings": "types/lightning.d.ts",
