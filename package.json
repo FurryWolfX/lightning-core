@@ -2,16 +2,19 @@
   "name": "@wolfx/lightning",
   "description": "fast web framework",
   "author": "wolfx",
-  "version": "3.0.5",
+  "version": "3.0.7",
   "license": "MIT",
   "main": "dist/index.js",
-  "typings": "types/index.d.ts",
+  "typings": "src/index.ts",
   "keywords": [
     "framework",
     "web",
     "router",
     "api"
   ],
+  "scripts": {
+    "publish": "npm publish --access public"
+  },
   "engines": {
     "node": ">= 8.11.0"
   },

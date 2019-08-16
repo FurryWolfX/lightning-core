@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as path from "path";
 import * as _ from "lodash";
 
 import getIpArray from "./utils/ip";
@@ -37,8 +38,7 @@ export function start(port: number, callback?: (ipArray: string[]) => void): Lig
       const nameArray = po.filename.split(".");
       const extName = nameArray[nameArray.length - 1];
       if (extName === "js") {
-        console.log("init router", po.path + "/" + po.filename);
-        require(po.path + "/" + po.filename);
+        require(path.resolve(po.path, po.filename));
       }
     });
     app.listen(port, () => {
