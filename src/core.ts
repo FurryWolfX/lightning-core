@@ -5,10 +5,11 @@ import getIpArray from "./utils/ip";
 import validate from "./config-validator";
 import getUpload from "./upload";
 import applyMiddleware from "./config-middleware";
-import defaultConfig, { LightningConfig } from "./config-default";
+import defaultConfig from "./config-default";
 import readFileList, { FileItem } from "./utils/readFileList";
 import { Application } from "express";
 import * as multer from "multer";
+import { LightningConfig, LightningState } from "./type";
 
 let app: Application;
 let upload: multer.Instance;
@@ -23,13 +24,7 @@ export function setConfig(cfg: LightningConfig) {
   upload = getUpload(config);
 }
 
-type LightningState = {
-  app: Application;
-  upload: multer.Instance;
-  config: LightningConfig;
-};
-
-export function start(port: number, callback: (ipArray: string[]) => void): LightningState {
+export function start(port: number, callback?: (ipArray: string[]) => void): LightningState {
   if (isStarted === false) {
     isStarted = true;
     const routers: FileItem[] = _.sortBy(readFileList(config.routerDir), po => {

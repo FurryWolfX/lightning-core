@@ -4,7 +4,7 @@ import * as cookieParser from "cookie-parser";
 import * as cors from "express-cors";
 import responseTime from "./middleware/response-time";
 import { Application } from "express";
-import { LightningConfig } from "./config-default";
+import { LightningConfig } from "./type";
 
 function apply(app: Application, config: LightningConfig) {
   app.use(cors(config.cors));
