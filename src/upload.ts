@@ -1,10 +1,14 @@
-const multer = require("multer");
-const md5 = require("./utils/md5");
+import * as multer from "multer";
+import md5 from "./utils/md5";
 
-module.exports.getUpload = function(config) {
+type UploadConfig = {
+  storage: string;
+};
+
+function getUpload(config: UploadConfig): multer.Instance {
   // 文件上传
   // 参考：https://blog.csdn.net/jishoujiang/article/details/80367683
-  const storage = multer.diskStorage({
+  const storage: multer.StorageEngine = multer.diskStorage({
     destination: function(req, file, cb) {
       cb(null, config.storage);
     },
@@ -20,4 +24,6 @@ module.exports.getUpload = function(config) {
   return multer({
     storage: storage
   });
-};
+}
+
+export default getUpload;

@@ -1,10 +1,12 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const cors = require("express-cors");
-const responseTime = require("./middleware/response-time");
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import * as cookieParser from "cookie-parser";
+import * as cors from "express-cors";
+import responseTime from "./middleware/response-time";
+import { Application } from "express";
+import { LightningConfig } from "./config-default";
 
-function apply(app, config) {
+function apply(app: Application, config: LightningConfig) {
   app.use(cors(config.cors));
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,4 +32,4 @@ function apply(app, config) {
   });
 }
 
-module.exports = apply;
+export default apply;

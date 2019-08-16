@@ -1,7 +1,7 @@
-const Buffer = require("buffer").Buffer;
-const crypto = require("crypto");
+import { Buffer } from "buffer";
+import * as crypto from "crypto";
 
-function md5(data) {
+function md5(data): string {
   const buf = Buffer.from(data);
   const str = buf.toString("binary"); // 关键
   return crypto
@@ -10,4 +10,4 @@ function md5(data) {
     .digest("hex");
 }
 
-module.exports = md5;
+export default md5;

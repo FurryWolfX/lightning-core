@@ -1,6 +1,7 @@
-const limitControl = require("./limitControl");
-const core = require("../core");
-const getIpArray = require("../utils/ip");
+import limitControl from "./limitControl";
+import * as core from "../core";
+import getIpArray from "../utils/ip";
+import { Ws } from "../../types/nodejs-websocket";
 
 let server = null;
 let heartbeatInterval = null;
@@ -17,7 +18,7 @@ function initWebsocket(config, wsPort, callback) {
   if (server !== null) {
     console.warn("ws server has been started, don't init again");
   } else {
-    const ws = require("nodejs-websocket"); // 懒加载
+    const ws: Ws = require("nodejs-websocket"); // 懒加载
     server = ws.createServer(conn => {
       console.log("ws key", conn.key);
       if (config.wsLimit) {
@@ -62,7 +63,7 @@ function initWebsocket(config, wsPort, callback) {
   }
 }
 
-module.exports.start = function(wsPort, callback) {
+export function start(wsPort, callback) {
   const config = core.getState().config;
   initWebsocket(config.websocket, wsPort, () => {
     const ipArray = getIpArray();
@@ -72,8 +73,8 @@ module.exports.start = function(wsPort, callback) {
       ipArray.forEach(ip => console.log(`[Lightning] Lightning Websocket Server listening on ws://${ip}:${wsPort}!`));
     }
   });
-};
+}
 
-module.exports.getState = function() {
+export function getState() {
   return { server };
-};
+}

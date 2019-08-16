@@ -3,7 +3,7 @@
  * @param server
  * @param max
  */
-const limitControl = (server, max) => {
+const limitControl = (server, max): void => {
   console.log("ws status count: " + server.connections.length + "/" + max);
   if (server.connections.length > max) {
     console.log("ws count overflow, starting force GC...");
@@ -13,4 +13,4 @@ const limitControl = (server, max) => {
   }
 };
 
-module.exports = limitControl;
+export default limitControl;

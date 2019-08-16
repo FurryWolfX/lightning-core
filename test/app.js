@@ -1,4 +1,4 @@
-const Lightning = require("../index");
+const Lightning = require("../dist");
 const path = require("path");
 Lightning.setConfig({
   websocket: {

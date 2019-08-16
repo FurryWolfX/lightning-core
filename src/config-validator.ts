@@ -1,8 +1,9 @@
+import { LightningConfig } from "./config-default";
+
 /**
  * @description 验证设置
- * @param {LightningConfig} config
  */
-const validate = config => {
+const validate = (config: LightningConfig) => {
   if (!config.storage) {
     console.error("config.storage is undefined");
     process.exit();
@@ -35,4 +36,4 @@ const validate = config => {
   }
 };
 
-module.exports = validate;
+export default validate;

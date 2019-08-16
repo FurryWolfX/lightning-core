@@ -2,10 +2,10 @@
   "name": "@wolfx/lightning",
   "description": "fast web framework",
   "author": "wolfx",
-  "version": "2.1.1",
+  "version": "3.0.0",
   "license": "MIT",
-  "main": "index.js",
-  "typings": "types/lightning.d.ts",
+  "main": "dist/index.js",
+  "typings": "types/index.d.ts",
   "keywords": [
     "framework",
     "web",
@@ -26,7 +26,9 @@
     "multer": "^1.4.1"
   },
   "devDependencies": {
+    "@types/node": "^12.7.2",
     "nodejs-websocket": "^1.7.2",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "typescript": "^3.5.3"
   }
 }

@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "removeComments": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./src"
+  }
+}

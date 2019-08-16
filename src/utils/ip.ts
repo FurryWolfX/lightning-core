@@ -1,9 +1,6 @@
-const os = require("os");
+import * as os from "os";
 
-/**
- * @returns {Array}
- */
-const getIpArray = () => {
+function getIpArray(): string[] {
   const ipConfig = os.networkInterfaces();
   const ipArray = [];
   Object.keys(ipConfig).forEach(key => {
@@ -14,6 +11,6 @@ const getIpArray = () => {
     });
   });
   return ipArray;
-};
+}
 
-module.exports = getIpArray;
+export default getIpArray;

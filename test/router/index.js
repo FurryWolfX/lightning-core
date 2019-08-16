@@ -1,4 +1,4 @@
-const Lightning = require("../../index");
+const Lightning = require("../../dist");
 
 const app = Lightning.core.getState().app;
 

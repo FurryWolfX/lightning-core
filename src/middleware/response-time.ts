@@ -14,4 +14,4 @@ const responseTime = callback => {
   }
 };
 
-module.exports = responseTime;
+export default responseTime;
