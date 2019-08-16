@@ -1,5 +1,8 @@
 const Lightning = require("../../dist");
 
-const app = Lightning.core.getState().app;
+const state = Lightning.core.getState();
+const app = state.app;
 
 app.get("/", (req, res) => res.send("Hello World!"));
+
+console.log(state);
