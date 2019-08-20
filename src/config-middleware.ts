@@ -1,13 +1,15 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
-import * as cors from "express-cors";
+import * as cors from "cors";
 import responseTime from "./middleware/response-time";
 import { Application } from "express";
 import { LightningConfig } from "./type";
 
 function apply(app: Application, config: LightningConfig) {
-  app.use(cors(config.cors));
+  if (config.cors) {
+    app.use(cors());
+  }
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());

@@ -41,9 +41,7 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 const Lightning = require("@wolfx/lightning");
 const path = require("path");
 Lightning.setConfig({
-  cors: {
-    allowedOrigins: ["*"]
-  },
+  cors: true,
   requestLogCallback: (method, url) => {
     // 请求日志
     console.log(`${method} ${url}`);
