@@ -25,6 +25,7 @@ function apply(app: Application, config: LightningConfig) {
   );
 
   app.all("*", (req, res, next) => {
+    res.header("X-Powered-By", "Lightning Framework");
     if (typeof config.requestLogCallback === "function") {
       config.requestLogCallback(req.method, req.url);
     } else {
