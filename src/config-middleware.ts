@@ -2,6 +2,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as cookieParser from "cookie-parser";
 import * as cors from "cors";
+import * as compression from "compression";
 import responseTime from "./middleware/response-time";
 import { Application } from "express";
 import { LightningConfig } from "./type";
@@ -14,6 +15,7 @@ function apply(app: Application, config: LightningConfig) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(config.static));
+  app.use(compression());
   app.use(
     responseTime((method, url, time) => {
       if (typeof config.responseLogCallback === "function") {

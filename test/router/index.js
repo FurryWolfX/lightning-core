@@ -1,4 +1,4 @@
-const Lightning = require("../../dist");
+const Lightning = require("../../dist").default;
 
 const state = Lightning.core.getState();
 const app = state.app;

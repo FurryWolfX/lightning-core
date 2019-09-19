@@ -1,4 +1,4 @@
-const Lightning = require("../dist");
+const Lightning = require("../dist").default;
 const path = require("path");
 Lightning.setConfig({
   websocket: {
@@ -13,4 +13,4 @@ Lightning.setConfig({
   routerDir: path.resolve(__dirname, "./router")
 });
 Lightning.core.start(3001);
-Lightning.websocket.start(3002);
+// Lightning.websocket.start(3002);
