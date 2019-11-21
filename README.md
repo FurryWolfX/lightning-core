@@ -12,6 +12,8 @@
 
 使用 TypeScript 重写了项目
 
+注意：ES6 引入时需要额外加 `.default`
+
 ## 2.x 版本说明
 
 2.x 中将数据库持久层移出了核心项目。需要 database 模块的请使用 1.x
@@ -38,7 +40,7 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 ### 启动服务
 
 ```javascript
-const Lightning = require("@wolfx/lightning");
+const Lightning = require("@wolfx/lightning").default;
 const path = require("path");
 Lightning.setConfig({
   cors: true,
@@ -66,7 +68,7 @@ const { app, upload } = Lightning.core.getState();
 在 `router` 中新建一个 `user.js` 文件，名字随意。路由用法与 express 框架一致。
 
 ```javascript
-const Lightning = require("@wolfx/lightning");
+const Lightning = require("@wolfx/lightning").default;
 const { findByAge } = require("../service/user"); // 编写你的业务，可以选你自己喜欢的 DB 框架
 const app = Lightning.core.getState().app;
 
