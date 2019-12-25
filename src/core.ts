@@ -28,7 +28,7 @@ export function setConfig(cfg: LightningConfig) {
 export function start(port: number, callback?: (ipArray: string[]) => void): LightningState {
   if (isStarted === false) {
     isStarted = true;
-    const routers: FileItem[] = _.sortBy(readFileList(config.routerDir), po => {
+    const routers: FileItem[] = _.sortBy(readFileList(config.routerDir), (po: FileItem) => {
       if (po.filename === "index.js") {
         // index.js 放第一路由
         return -1;

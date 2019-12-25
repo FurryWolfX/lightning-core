@@ -1,17 +1,13 @@
 import limitControl from "./limitControl";
 import * as core from "../core";
 import getIpArray from "../utils/ip";
-import { Ws } from "../../types/nodejs-websocket";
+import { Ws, Server, Connection } from "../../types/nodejs-websocket";
+import { LightningWebsocketConfig } from "../type";
 
-let server = null;
-let heartbeatInterval = null;
+let server: Server = null;
+let heartbeatInterval: NodeJS.Timeout = null;
 
-/**
- * @param {LightningWebsocketConfig} config
- * @param wsPort
- * @returns {*}
- */
-function initWebsocket(config, wsPort, callback) {
+function initWebsocket(config: LightningWebsocketConfig, wsPort: number, callback: () => void) {
   if (!config) {
     return console.error("config.websocket is undefined");
   }
@@ -19,7 +15,7 @@ function initWebsocket(config, wsPort, callback) {
     console.warn("ws server has been started, don't init again");
   } else {
     const ws: Ws = require("nodejs-websocket"); // 懒加载
-    server = ws.createServer(conn => {
+    server = ws.createServer((conn: Connection) => {
       console.log("ws key", conn.key);
       if (config.wsLimit) {
         limitControl(server, config.wsLimit);
@@ -29,20 +25,18 @@ function initWebsocket(config, wsPort, callback) {
       conn.on("pong", () => {
         conn.isAlive = true;
       });
-      conn.on("text", str => {
+      conn.on("text", (str: string) => {
         config.onText(str, conn);
       });
-      conn.on("close", (code, reason) => {
+      conn.on("close", (code: number, reason: string) => {
         config.onClose(code, reason, conn);
       });
-      conn.on("error", (code, reason) => {
+      conn.on("error", (code: number, reason: string) => {
         config.onError(code, reason, conn);
       });
     });
 
-    server.listen(wsPort, () => {
-      callback();
-    });
+    server.listen(wsPort, () => callback());
 
     if (heartbeatInterval) {
       clearInterval(heartbeatInterval);
@@ -63,7 +57,7 @@ function initWebsocket(config, wsPort, callback) {
   }
 }
 
-export function start(wsPort, callback) {
+export function start(wsPort: number, callback: (ipArray: Array<string>) => void) {
   const config = core.getState().config;
   initWebsocket(config.websocket, wsPort, () => {
     const ipArray = getIpArray();

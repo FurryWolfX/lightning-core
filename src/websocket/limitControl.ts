@@ -1,9 +1,10 @@
+import { Server } from "../../types/nodejs-websocket";
 /**
  * 防爆控制
  * @param server
  * @param max
  */
-const limitControl = (server, max): void => {
+const limitControl = (server: Server, max: number): void => {
   console.log("ws status count: " + server.connections.length + "/" + max);
   if (server.connections.length > max) {
     console.log("ws count overflow, starting force GC...");

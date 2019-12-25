@@ -1,5 +1,5 @@
 export interface Server {
-  listen(port: number, host?: string, callback?: Function): void;
+  listen(port: number, callback?: () => void): void;
   close(callback?: Function): void;
   socket: any;
   connections: Array<Connection>;
@@ -21,6 +21,8 @@ export interface Connection {
   protocols: Array<string>;
   protocol: string;
   on: Function;
+  key: string;
+  isAlive: boolean;
 }
 
 export interface Ws {

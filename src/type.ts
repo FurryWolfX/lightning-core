@@ -20,8 +20,8 @@ export type LightningConfig = {
   websocket?: LightningWebsocketConfig;
   cors?: boolean;
   static?: string;
-  responseLogCallback?: (method, url, time) => void;
-  requestLogCallback?: (method, url) => void;
+  responseLogCallback?: (method: string, url: string, time: number) => void;
+  requestLogCallback?: (method: string, url: string) => void;
   storage: string;
   routerDir: string;
 };
