@@ -54,21 +54,26 @@ Lightning 使用约定大于配置的理念。约定的结构如下：
 
 ### 启动服务
 
-```javascript
-const Lightning = require("@wolfx/lightning").default;
-const path = require("path");
+```typescript
+import Lightning from "@wolfx/lightning";
+import * as path from "path";
 Lightning.setConfig({
   cors: true,
-  requestLogCallback: (method, url) => {
-    // 请求日志
-    console.log(`${method} ${url}`);
+  requestLogCallback: (method: string, url: string) => {
+    logger.info(`[request:${process.pid}] ${method} ${url}`);
   },
-  responseLogCallback: (method, url, time) => {
-    // 响应日志，可获得响应时间，用于性能分析
-    console.log(`${method} ${url} ${time}ms`);
+  responseLogCallback: (method: string, url: string, time: number) => {
+    logger.info(`[response:${process.pid}] ${method} ${url} ${time}ms`);
   },
-  storage: path.resolve(__dirname, "./public/upload"), // 文件上传路径，public为默认的静态资源路径
-  routerDir: path.resolve(__dirname, "./router") // 路由文件夹
+  compression: true, // gzip 支持
+  storage: path.resolve(__dirname, "../public/upload"),
+  routerDir: path.resolve(__dirname, "./router"),
+  serviceCenter: {
+    // 微服务注册中心配置，不需要的话可以去掉
+    centerUrl: "http://127.0.0.1:3000/register", // 注册中心注册服务的地址
+    serviceName: "test-service", // 要注册的服务名称
+    serviceUrl: "http://127.0.0.1:3001/" // 服务（本项目）的地址，末尾要加"/"
+  }
 });
 Lightning.core.start(3001);
 
@@ -82,13 +87,13 @@ const { app, upload } = Lightning.core.getState();
 
 在 `router` 中新建一个 `user.js` 文件，名字随意。路由用法与 express 框架一致。
 
-```javascript
-const Lightning = require("@wolfx/lightning").default;
-const { findByAge } = require("../service/user"); // 编写你的业务，可以选你自己喜欢的 DB 框架
+```typescript
+import Lightning from "@wolfx/lightning";
+import { findByAge } from "../service/user"; // 编写你的业务，可以选你自己喜欢的 DB 框架
 const app = Lightning.core.getState().app;
 
 // 登录拦截例子
-app.all("/*", function(req, res, next) {
+app.all("/*", (req, res, next) => {
   if (req.session.user) {
     next();
   } else {

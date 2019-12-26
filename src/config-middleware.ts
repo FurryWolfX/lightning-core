@@ -15,7 +15,9 @@ function apply(app: Application, config: LightningConfig) {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(cookieParser());
   app.use(express.static(config.static));
-  app.use(compression());
+  if (config.compression) {
+    app.use(compression());
+  }
   app.use(
     responseTime((method, url, time) => {
       if (url === "/is-service-online") return;

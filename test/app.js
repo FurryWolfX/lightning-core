@@ -9,6 +9,7 @@ Lightning.setConfig({
     onClose: (code, reason, conn) => {},
     onError: (code, reason, conn) => {}
   },
+  compression: true, // gzip 支持
   storage: path.resolve(__dirname, "./public/upload"),
   routerDir: path.resolve(__dirname, "./router")
   // serviceCenter: {
