@@ -8,6 +8,21 @@
 
 目前作为公司内部使用。
 
+## 3.2.x 更新
+
+添加微服务支持。
+
+```javascript
+Lightning.setConfig({
+  //...
+  serviceCenter: {
+    centerUrl: "http://127.0.0.1:3000/register",
+    serviceName: "test-service",
+    serviceUrl: "http://127.0.0.1:3001/" // 末尾要加"/"
+  }
+});
+```
+
 ## 3.x 版本说明
 
 使用 TypeScript 重写了项目

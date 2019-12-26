@@ -11,6 +11,7 @@ import readFileList, { FileItem } from "./utils/readFileList";
 import { Application } from "express";
 import * as multer from "multer";
 import { LightningConfig, LightningState } from "./type";
+import { doRegister } from "./micro-service";
 
 let app: Application;
 let upload: multer.Instance;
@@ -22,6 +23,7 @@ export function setConfig(cfg: LightningConfig) {
   app = express();
   validate(config);
   applyMiddleware(app, config);
+  doRegister(config);
   upload = getUpload(config);
 }
 

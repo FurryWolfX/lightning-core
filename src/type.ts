@@ -24,4 +24,9 @@ export type LightningConfig = {
   requestLogCallback?: (method: string, url: string) => void;
   storage: string;
   routerDir: string;
+  serviceCenter?: {
+    centerUrl: string;
+    serviceName: string;
+    serviceUrl: string;
+  };
 };

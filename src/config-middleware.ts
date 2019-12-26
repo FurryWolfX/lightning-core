@@ -18,6 +18,7 @@ function apply(app: Application, config: LightningConfig) {
   app.use(compression());
   app.use(
     responseTime((method, url, time) => {
+      if (url === "/is-service-online") return;
       if (typeof config.responseLogCallback === "function") {
         config.responseLogCallback(method, url, time);
       } else {
@@ -25,6 +26,10 @@ function apply(app: Application, config: LightningConfig) {
       }
     })
   );
+
+  app.get("/is-service-online", (req, res, next) => {
+    res.send({ online: true });
+  });
 
   app.all("*", (req, res, next) => {
     res.header("X-Powered-By", "Lightning Framework");

@@ -11,6 +11,11 @@ Lightning.setConfig({
   },
   storage: path.resolve(__dirname, "./public/upload"),
   routerDir: path.resolve(__dirname, "./router")
+  // serviceCenter: {
+  //   centerUrl: "http://127.0.0.1:3000/register",
+  //   serviceName: "test-service-2",
+  //   serviceUrl: "http://127.0.0.1:3001/" // 末尾要加"/"
+  // }
 });
 Lightning.core.start(3001);
 // Lightning.websocket.start(3002);
