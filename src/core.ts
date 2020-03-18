@@ -9,12 +9,11 @@ import applyMiddleware from "./config-middleware";
 import defaultConfig from "./config-default";
 import readFileList, { FileItem } from "./utils/readFileList";
 import { Application } from "express";
-import * as multer from "multer";
 import { LightningConfig, LightningState } from "./type";
 import { doRegister } from "./micro-service";
 
 let app: Application;
-let upload: multer.Instance;
+let upload: any;
 let isStarted = false;
 let config: LightningConfig = defaultConfig;
 

@@ -5,7 +5,7 @@ type UploadConfig = {
   storage: string;
 };
 
-function getUpload(config: UploadConfig): multer.Instance {
+function getUpload(config: UploadConfig) {
   // 文件上传
   // 参考：https://blog.csdn.net/jishoujiang/article/details/80367683
   const storage: multer.StorageEngine = multer.diskStorage({

@@ -1,9 +1,8 @@
 import { Application } from "express";
-import * as multer from "multer";
 
 export type LightningState = {
   app: Application;
-  upload: multer.Instance;
+  upload: any;
   config: LightningConfig;
 };
 
