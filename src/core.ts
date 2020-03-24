@@ -29,17 +29,19 @@ export function setConfig(cfg: LightningConfig) {
 export function start(port: number, callback?: (ipArray: string[]) => void): LightningState {
   if (isStarted === false) {
     isStarted = true;
+    // 获取路由文件，并将index排序到第一个
     const routers: FileItem[] = _.sortBy(readFileList(config.routerDir), (po: FileItem) => {
-      if (po.filename === "index.js") {
-        // index.js 放第一路由
+      if (po.filename === "index.ts") {
+        // index.ts 放第一路由
         return -1;
       }
     });
     routers.forEach(po => {
       const nameArray = po.filename.split(".");
       const extName = nameArray[nameArray.length - 1];
-      if (extName === "js") {
-        require(path.resolve(po.path, po.filename));
+      if (extName === "ts" && nameArray.indexOf("manifest") === -1) {
+        let file: string = path.resolve(po.path, po.filename);
+        require(file);
       }
     });
     app.listen(port, () => {
@@ -47,7 +49,7 @@ export function start(port: number, callback?: (ipArray: string[]) => void): Lig
       if (typeof callback === "function") {
         callback(ipArray);
       } else {
-        ipArray.forEach(ip => console.log(`Lightning Server listening on http://${ip}:${port}!`));
+        ipArray.forEach(ip => console.log(`Lightning Server listening on http://${ip}:${port}`));
       }
     });
   } else {

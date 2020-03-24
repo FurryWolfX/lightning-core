@@ -4,8 +4,7 @@ const defaultConfig: LightningConfig = {
   cors: true,
   static: "public",
   storage: "",
-  routerDir: "",
-  websocket: null
+  routerDir: ""
 };
 
 export default defaultConfig;

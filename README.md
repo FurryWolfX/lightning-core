@@ -8,6 +8,11 @@
 
 目前作为公司内部使用。
 
+## 4.x 更新
+
+- 移除了 WebSocket，因为没有必要在 Core 中实现。
+- 发布的 NPM 包去掉了 JS dist，不再支持在 JS 项目中使用 lightning，推荐使用 TS。
+
 ## 3.2.x 更新
 
 添加微服务支持。
@@ -119,27 +124,4 @@ app.post("/upload", upload.single("file"), (req, res, next) => {
   // const url = "http://" + req.headers.host + "/upload/" + req.file.filename;
   res.end(req.file.filename);
 });
-```
-
-### 可选：配置 websocket 服务
-
-```bash
-# 需要额外安装 nodejs-websocket
-npm i nodejs-websocket --save
-```
-
-```javascript
-Lightning.setConfig({
-  websocket: {
-    wsLimit: 1000,
-    heartbeatTimeout: 6000,
-    onConnected: conn => {},
-    onText: (str, conn) => {},
-    onClose: (code, reason, conn) => {},
-    onError: (code, reason, conn) => {}
-  }
-  //...
-});
-
-Lightning.websocket.start(3002);
 ```

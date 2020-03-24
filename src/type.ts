@@ -6,17 +6,7 @@ export type LightningState = {
   config: LightningConfig;
 };
 
-export type LightningWebsocketConfig = {
-  wsLimit?: number;
-  heartbeatTimeout: number;
-  onConnected?: Function;
-  onText?: Function;
-  onClose?: Function;
-  onError?: Function;
-};
-
 export type LightningConfig = {
-  websocket?: LightningWebsocketConfig;
   cors?: boolean;
   static?: string;
   responseLogCallback?: (method: string, url: string, time: number) => void;
