@@ -8,10 +8,6 @@ const validate = (config: LightningConfig) => {
     console.error("config.storage is undefined");
     process.exit();
   }
-  if (!config.routerDir) {
-    console.error("config.routerDir is undefined");
-    process.exit();
-  }
 };
 
 export default validate;

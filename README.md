@@ -8,35 +8,14 @@
 
 目前作为公司内部使用。
 
+## 4.1.x 更新
+
+- 路由改为静态生成器生成。配合 `lightining-template` 使用。
+
 ## 4.x 更新
 
 - 移除了 WebSocket，因为没有必要在 Core 中实现。
 - 发布的 NPM 包去掉了 JS dist，不再支持在 JS 项目中使用 lightning，推荐使用 TS。
-
-## 3.2.x 更新
-
-添加微服务支持。
-
-```javascript
-Lightning.setConfig({
-  //...
-  serviceCenter: {
-    centerUrl: "http://127.0.0.1:3000/register",
-    serviceName: "test-service",
-    serviceUrl: "http://127.0.0.1:3001/" // 末尾要加"/"
-  }
-});
-```
-
-## 3.x 版本说明
-
-使用 TypeScript 重写了项目
-
-注意：ES6 引入时需要额外加 `.default`
-
-## 2.x 版本说明
-
-2.x 中将数据库持久层移出了核心项目。需要 database 模块的请使用 1.x
 
 ### 安装
 
@@ -72,13 +51,6 @@ Lightning.setConfig({
   },
   compression: true, // gzip 支持
   storage: path.resolve(__dirname, "../public/upload"),
-  routerDir: path.resolve(__dirname, "./router"),
-  serviceCenter: {
-    // 微服务注册中心配置，不需要的话可以去掉
-    centerUrl: "http://127.0.0.1:3000/register", // 注册中心注册服务的地址
-    serviceName: "test-service", // 要注册的服务名称
-    serviceUrl: "http://127.0.0.1:3001/" // 服务（本项目）的地址，末尾要加"/"
-  }
 });
 Lightning.core.start(3001);
 
