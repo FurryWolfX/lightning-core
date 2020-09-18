@@ -13,9 +13,11 @@ server.start();
 
 @routerClass()
 class DemoRouter {
-  @routerMapper(server, Server.GET, "/")
+  @routerMapper(server, Server.GET, "/:id/:type")
   async getData(data: RouteCallbackParams) {
-    console.log(data.query);
-    return data.query;
+    return {
+      query: data.query,
+      params: data.params
+    };
   }
 }

@@ -55,3 +55,18 @@ class DemoRouter {
   }
 }
 ```
+
+使用动态路由
+
+```typescript
+@routerClass()
+class DemoRouter {
+  @routerMapper(server, Server.GET, "/:id/:type")
+  async getData(data: RouteCallbackParams) {
+    return {
+      query: data.query,
+      params: data.params
+    };
+  }
+}
+```

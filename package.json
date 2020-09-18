@@ -17,14 +17,16 @@
   },
   "scripts": {
     "build": "tsc --watch",
-    "test-http": "ts-node ./src/http/Server.test.ts"
+    "test-http": "ts-node ./src/http/Server.test.ts",
+    "test-route-utils": "ts-node ./src/utils/routeUtils.test.ts"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
     "@types/formidable": "^1.0.31",
     "@types/node": "^12.7.2",
     "cookie-parser": "^1.4.4",
-    "formidable": "^1.2.2"
+    "formidable": "^1.2.2",
+    "ts-node": "^9.0.0"
   },
   "devDependencies": {
     "prettier": "^1.16.4",

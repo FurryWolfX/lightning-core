@@ -4,6 +4,7 @@ import * as urlLib from "url";
 import { IncomingMessage, ServerResponse } from "http";
 import { IncomingForm } from "formidable";
 import getIpArray from "../utils/ip";
+import { parseDynamicRoute } from "../utils/routeUtils";
 
 export interface ServerConfig {
   port: number;
@@ -14,9 +15,10 @@ export type KV<T> = { [k: string]: T };
 export interface RouteCallbackParams {
   req: IncomingMessage;
   res: ServerResponse;
-  fields: KV<any>;
-  files: KV<any>;
-  query: KV<any>;
+  fields: KV<any>; // 用于 post
+  files: KV<any>; // 用于文件上传
+  query: KV<any>; // 用于 qs
+  params: KV<any>; // 用于动态路由参数
 }
 
 export type RouteCallbackFn = (data: RouteCallbackParams) => Promise<string | Object>;
@@ -29,7 +31,7 @@ export interface Logger {
 
 export default class Server {
   private instance: http.Server;
-  private routeMap: Map<string, RouteCallbackFn>;
+  private routeMap: Map<string, RouteCallbackFn> = new Map();
   public readonly config: ServerConfig;
   public responseHeaders: KV<string>;
   public logger: Logger = {
@@ -42,11 +44,10 @@ export default class Server {
 
   constructor(config: ServerConfig) {
     this.config = config;
-    this.routeMap = new Map();
   }
 
   addRoute(method: string, path: string, callback: RouteCallbackFn) {
-    this.routeMap.set(`${method}::${path}`, callback);
+    this.routeMap.set(`${method}@${path}`, callback);
   }
 
   /**
@@ -91,15 +92,19 @@ export default class Server {
           const { pathname, query: qs } = urlLib.parse(req.url);
           const query = querystring.parse(qs);
 
+          this.logger.log("pathname: " + pathname);
           this.logger.log("fields: " + JSON.stringify(fields));
           this.logger.log("files: " + JSON.stringify(files));
           this.logger.log("query: " + JSON.stringify(query));
+
           // 寻找路由定义
-          if (this.routeMap.has(`${req.method}::${pathname}`)) {
-            const routeCallback = this.routeMap.get(`${req.method}::${pathname}`);
+          const route = parseDynamicRoute(this.routeMap, `${req.method}@${pathname}`);
+          if (route) {
+            this.logger.log("params: " + JSON.stringify(route.params));
+            const routeCallback = route.fn;
             if (typeof routeCallback === "function") {
               try {
-                const result = await routeCallback({ fields, files, query, req, res });
+                const result = await routeCallback({ fields, files, query, params: route.params, req, res });
                 if (typeof result === "string") {
                   res.end(result);
                 } else {
