@@ -13,15 +13,18 @@ export interface ServerConfig {
 export type KV<T> = { [k: string]: T };
 
 export interface RouteCallbackParams {
-  req: IncomingMessage;
-  res: ServerResponse;
   fields: KV<any>; // 用于 post
   files: KV<any>; // 用于文件上传
   query: KV<any>; // 用于 qs
   params: KV<any>; // 用于动态路由参数
 }
 
-export type RouteCallbackFn = (data: RouteCallbackParams) => Promise<string | Object>;
+export interface RouteCallbackCtx {
+  req: IncomingMessage;
+  res: ServerResponse;
+}
+
+export type RouteCallbackFn = (data: RouteCallbackParams, ctx: RouteCallbackCtx) => Promise<string | Object>;
 
 export interface Logger {
   log: Function;
@@ -104,7 +107,7 @@ export default class Server {
             const routeCallback = route.fn;
             if (typeof routeCallback === "function") {
               try {
-                const result = await routeCallback({ fields, files, query, params: route.params, req, res });
+                const result = await routeCallback({ fields, files, query, params: route.params }, { req, res });
                 if (typeof result === "string") {
                   res.end(result);
                 } else {
