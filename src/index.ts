@@ -1,8 +1,3 @@
-import * as core from "./core";
+import Server from "./http/Server";
 
-class Lightning {
-  static core: typeof core = core;
-  static setConfig: typeof core.setConfig = core.setConfig;
-}
-
-export default Lightning;
+export { Server };
