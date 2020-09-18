@@ -4,7 +4,7 @@
 
 "@types/body-parser@*":
   version "1.19.0"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/body-parser/-/body-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
+  resolved "https://registry.npm.taobao.org/@types/body-parser/download/@types/body-parser-1.19.0.tgz?cache=0&sync_timestamp=1596837811026&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fbody-parser%2Fdownload%2F%40types%2Fbody-parser-1.19.0.tgz#0685b3c47eb3006ffed117cdd55164b61f80538f"
   integrity sha1-BoWzxH6zAG/+0RfN1VFkth+AU48=
   dependencies:
     "@types/connect" "*"
@@ -12,26 +12,26 @@
 
 "@types/connect@*":
   version "3.4.33"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/connect/-/connect-3.4.33.tgz#31610c901eca573b8713c3330abc6e6b9f588546"
+  resolved "https://registry.npm.taobao.org/@types/connect/download/@types/connect-3.4.33.tgz?cache=0&sync_timestamp=1596837850490&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fconnect%2Fdownload%2F%40types%2Fconnect-3.4.33.tgz#31610c901eca573b8713c3330abc6e6b9f588546"
   integrity sha1-MWEMkB7KVzuHE8MzCrxua59YhUY=
   dependencies:
     "@types/node" "*"
 
 "@types/cookie-parser@^1.4.2":
   version "1.4.2"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/cookie-parser/-/cookie-parser-1.4.2.tgz#e4d5c5ffda82b80672a88a4281aaceefb1bd9df5"
+  resolved "https://registry.npm.taobao.org/@types/cookie-parser/download/@types/cookie-parser-1.4.2.tgz?cache=0&sync_timestamp=1596837967192&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fcookie-parser%2Fdownload%2F%40types%2Fcookie-parser-1.4.2.tgz#e4d5c5ffda82b80672a88a4281aaceefb1bd9df5"
   integrity sha1-5NXF/9qCuAZyqIpCgarO77G9nfU=
   dependencies:
     "@types/express" "*"
 
 "@types/events@*":
   version "3.0.0"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/events/-/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
+  resolved "https://registry.npm.taobao.org/@types/events/download/@types/events-3.0.0.tgz#2862f3f58a9a7f7c3e78d79f130dd4d71c25c2a7"
   integrity sha1-KGLz9Yqaf3w+eNefEw3U1xwlwqc=
 
 "@types/express-serve-static-core@*":
   version "4.17.12"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/express-serve-static-core/-/express-serve-static-core-4.17.12.tgz#9a487da757425e4f267e7d1c5720226af7f89591"
+  resolved "https://registry.npm.taobao.org/@types/express-serve-static-core/download/@types/express-serve-static-core-4.17.12.tgz?cache=0&sync_timestamp=1598975463001&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fexpress-serve-static-core%2Fdownload%2F%40types%2Fexpress-serve-static-core-4.17.12.tgz#9a487da757425e4f267e7d1c5720226af7f89591"
   integrity sha1-mkh9p1dCXk8mfn0cVyAiavf4lZE=
   dependencies:
     "@types/node" "*"
@@ -40,7 +40,7 @@
 
 "@types/express@*":
   version "4.17.8"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/express/-/express-4.17.8.tgz#3df4293293317e61c60137d273a2e96cd8d5f27a"
+  resolved "https://registry.npm.taobao.org/@types/express/download/@types/express-4.17.8.tgz?cache=0&sync_timestamp=1598966419553&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fexpress%2Fdownload%2F%40types%2Fexpress-4.17.8.tgz#3df4293293317e61c60137d273a2e96cd8d5f27a"
   integrity sha1-PfQpMpMxfmHGATfSc6LpbNjV8no=
   dependencies:
     "@types/body-parser" "*"
@@ -50,7 +50,7 @@
 
 "@types/formidable@^1.0.31":
   version "1.0.31"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/formidable/-/formidable-1.0.31.tgz#274f9dc2d0a1a9ce1feef48c24ca0859e7ec947b"
+  resolved "https://registry.npm.taobao.org/@types/formidable/download/@types/formidable-1.0.31.tgz#274f9dc2d0a1a9ce1feef48c24ca0859e7ec947b"
   integrity sha1-J0+dwtChqc4f7vSMJMoIWefslHs=
   dependencies:
     "@types/events" "*"
@@ -58,32 +58,32 @@
 
 "@types/mime@*":
   version "2.0.3"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
+  resolved "https://registry.npm.taobao.org/@types/mime/download/@types/mime-2.0.3.tgz?cache=0&sync_timestamp=1596840690654&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fmime%2Fdownload%2F%40types%2Fmime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
   integrity sha1-yJO3NyHbc2mZQ7/DZTsd63+qSjo=
 
 "@types/node@*":
   version "14.11.1"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/node/-/node-14.11.1.tgz#56af902ad157e763f9ba63d671c39cda3193c835"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.11.1.tgz?cache=0&sync_timestamp=1600365280673&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.11.1.tgz#56af902ad157e763f9ba63d671c39cda3193c835"
   integrity sha1-Vq+QKtFX52P5umPWccOc2jGTyDU=
 
 "@types/node@^12.7.2":
   version "12.12.62"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/node/-/node-12.12.62.tgz#733923d73669188d35950253dd18a21570085d2b"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.12.62.tgz?cache=0&sync_timestamp=1600365280673&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.12.62.tgz#733923d73669188d35950253dd18a21570085d2b"
   integrity sha1-czkj1zZpGI01lQJT3RiiFXAIXSs=
 
 "@types/qs@*":
   version "6.9.5"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/qs/-/qs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
+  resolved "https://registry.npm.taobao.org/@types/qs/download/@types/qs-6.9.5.tgz?cache=0&sync_timestamp=1600296350500&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fqs%2Fdownload%2F%40types%2Fqs-6.9.5.tgz#434711bdd49eb5ee69d90c1d67c354a9a8ecb18b"
   integrity sha1-Q0cRvdSete5p2QwdZ8NUqajssYs=
 
 "@types/range-parser@*":
   version "1.2.3"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/range-parser/-/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
+  resolved "https://registry.npm.taobao.org/@types/range-parser/download/@types/range-parser-1.2.3.tgz#7ee330ba7caafb98090bece86a5ee44115904c2c"
   integrity sha1-fuMwunyq+5gJC+zoal7kQRWQTCw=
 
 "@types/serve-static@*":
   version "1.13.5"
-  resolved "http://192.168.1.22:8889/repository/npm-group/@types/serve-static/-/serve-static-1.13.5.tgz#3d25d941a18415d3ab092def846e135a08bbcf53"
+  resolved "https://registry.npm.taobao.org/@types/serve-static/download/@types/serve-static-1.13.5.tgz?cache=0&sync_timestamp=1596840491857&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fserve-static%2Fdownload%2F%40types%2Fserve-static-1.13.5.tgz#3d25d941a18415d3ab092def846e135a08bbcf53"
   integrity sha1-PSXZQaGEFdOrCS3vhG4TWgi7z1M=
   dependencies:
     "@types/express-serve-static-core" "*"
@@ -91,7 +91,7 @@
 
 cookie-parser@^1.4.4:
   version "1.4.5"
-  resolved "http://192.168.1.22:8889/repository/npm-group/cookie-parser/-/cookie-parser-1.4.5.tgz#3e572d4b7c0c80f9c61daf604e4336831b5d1d49"
+  resolved "https://registry.npm.taobao.org/cookie-parser/download/cookie-parser-1.4.5.tgz#3e572d4b7c0c80f9c61daf604e4336831b5d1d49"
   integrity sha1-PlctS3wMgPnGHa9gTkM2gxtdHUk=
   dependencies:
     cookie "0.4.0"
@@ -99,25 +99,25 @@ cookie-parser@^1.4.4:
 
 cookie-signature@1.0.6:
   version "1.0.6"
-  resolved "http://192.168.1.22:8889/repository/npm-group/cookie-signature/-/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
+  resolved "https://registry.npm.taobao.org/cookie-signature/download/cookie-signature-1.0.6.tgz#e303a882b342cc3ee8ca513a79999734dab3ae2c"
   integrity sha1-4wOogrNCzD7oylE6eZmXNNqzriw=
 
 cookie@0.4.0:
   version "0.4.0"
-  resolved "http://192.168.1.22:8889/repository/npm-group/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
+  resolved "https://registry.npm.taobao.org/cookie/download/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha1-vrQ35wIrO21JAZ0IhmUwPr6cFLo=
 
 formidable@^1.2.2:
   version "1.2.2"
-  resolved "http://192.168.1.22:8889/repository/npm-group/formidable/-/formidable-1.2.2.tgz#bf69aea2972982675f00865342b982986f6b8dd9"
+  resolved "https://registry.npm.taobao.org/formidable/download/formidable-1.2.2.tgz#bf69aea2972982675f00865342b982986f6b8dd9"
   integrity sha1-v2muopcpgmdfAIZTQrmCmG9rjdk=
 
 prettier@^1.16.4:
   version "1.19.1"
-  resolved "http://192.168.1.22:8889/repository/npm-group/prettier/-/prettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
+  resolved "https://registry.npm.taobao.org/prettier/download/prettier-1.19.1.tgz?cache=0&sync_timestamp=1600215482255&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fprettier%2Fdownload%2Fprettier-1.19.1.tgz#f7d7f5ff8a9cd872a7be4ca142095956a60797cb"
   integrity sha1-99f1/4qc2HKnvkyhQglZVqYHl8s=
 
 typescript@^3.9.7:
   version "3.9.7"
-  resolved "http://192.168.1.22:8889/repository/npm-group/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  resolved "https://registry.npm.taobao.org/typescript/download/typescript-3.9.7.tgz?cache=0&sync_timestamp=1600411773262&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftypescript%2Fdownload%2Ftypescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha1-mNYApevcOPQMsndSLxLcgA6eJfo=
