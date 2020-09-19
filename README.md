@@ -15,7 +15,7 @@
 ```typescript
 import { Server } from "@wolfx/lightning";
 
-const server = new Server({ port: 5000 });
+const server = new Server({ port: 5000, staticDir: "" });
 /*
 自定义logger
 server.setLogger({

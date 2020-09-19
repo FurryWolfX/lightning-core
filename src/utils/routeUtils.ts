@@ -10,7 +10,7 @@ export function parseDynamicRoute(routeMap: Map<string, RouteCallbackFn>, path: 
       return "(.*)";
     });
     const result = new RegExp(regStr).exec(path);
-    if (result) {
+    if (result && result.length > 1) {
       const params: KV<any> = {};
       for (let i = 1; i < result.length; i++) {
         const value = result[i];

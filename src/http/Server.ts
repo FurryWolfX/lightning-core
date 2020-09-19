@@ -1,13 +1,18 @@
 import * as http from "http";
+import * as path from "path";
+import * as fs from "fs";
 import * as querystring from "querystring";
 import * as urlLib from "url";
 import { IncomingMessage, ServerResponse } from "http";
 import { IncomingForm } from "formidable";
 import getIpArray from "../utils/ip";
 import { parseDynamicRoute } from "../utils/routeUtils";
+import mime from "../file/mime";
+import { handleStaticFile } from "../file/static";
 
 export interface ServerConfig {
   port: number;
+  staticDir?: string;
 }
 
 export type KV<T> = { [k: string]: T };
@@ -96,13 +101,14 @@ export default class Server {
           const query = querystring.parse(qs);
 
           this.logger.log("pathname: " + pathname);
-          this.logger.log("fields: " + JSON.stringify(fields));
-          this.logger.log("files: " + JSON.stringify(files));
-          this.logger.log("query: " + JSON.stringify(query));
 
           // 寻找路由定义
           const route = parseDynamicRoute(this.routeMap, `${req.method}@${pathname}`);
           if (route) {
+            this.logger.log("route: " + JSON.stringify(route));
+            this.logger.log("fields: " + JSON.stringify(fields));
+            this.logger.log("files: " + JSON.stringify(files));
+            this.logger.log("query: " + JSON.stringify(query));
             this.logger.log("params: " + JSON.stringify(route.params));
             const routeCallback = route.fn;
             if (typeof routeCallback === "function") {
@@ -119,8 +125,18 @@ export default class Server {
               }
             }
           } else {
-            res.statusCode = 404;
-            res.end(`${req.method} ${req.url}\n404 NOT FOUND`);
+            // 查找静态资源
+            if (this.config.staticDir) {
+              // 把路径转换为系统的绝对路径
+              const realpath = path.join(this.config.staticDir, pathname);
+              this.logger.log("realpath: " + realpath);
+              // 获取请求资源文件的后缀 用于编码格式
+              const extname = path.extname(pathname).substring(1);
+              handleStaticFile(req, res, realpath, extname);
+            } else {
+              res.statusCode = 404;
+              res.end(`${req.method} ${req.url}\n404 NOT FOUND`);
+            }
           }
         });
       });
