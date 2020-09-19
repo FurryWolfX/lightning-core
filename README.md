@@ -1,6 +1,6 @@
 ## 极简风格的 Web 服务端框架 Lightning
 
-坚持约定大于配置的原则，使开发更简单。
+超轻量，易于上手。坚持约定大于配置的原则，使开发更简单。
 
 需要配合 `lightning-template` 和 `lightning-generator` 一起使用效果最佳。
 
