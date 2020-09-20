@@ -13,7 +13,7 @@
 重写了全部代码，与 4.x 不兼容。
 
 ```typescript
-import { Server } from "@wolfx/lightning";
+import { Server, RouteCallbackParams, RouteCallbackCtx } from "@wolfx/lightning";
 
 const server = new Server({ port: 5000, staticDir: "" });
 /*
@@ -28,10 +28,10 @@ server.setResponseHeaders({
   token: "your-token"
 });
 */
-server.addRoute(Server.GET, "/test", async data => {
+server.addRoute(Server.GET, "/test", async (data: RouteCallbackParams, ctx: RouteCallbackCtx) => {
   return data.query;
 });
-server.addRoute(Server.POST, "/", async data => {
+server.addRoute(Server.POST, "/", async (data: RouteCallbackParams, ctx: RouteCallbackCtx) => {
   return data.fields;
 });
 server.start();
@@ -40,8 +40,7 @@ server.start();
 如果你喜欢用装饰器，也可以这样使用：
 
 ```typescript
-import { RouteCallbackParams } from "@wolfx/lightning/http/Server";
-import { routerClass, routerMapper } from "@wolfx/lightning/decorator";
+import { Server, RouteCallbackParams, RouteCallbackCtx, routerClass, routerMapper } from "@wolfx/lightning";
 
 const server = new Server({ port: 5000 });
 server.start();
@@ -49,7 +48,7 @@ server.start();
 @routerClass()
 class DemoRouter {
   @routerMapper(server, Server.GET, "/")
-  async getData(data: RouteCallbackParams) {
+  async getData(data: RouteCallbackParams, ctx: RouteCallbackCtx) {
     console.log(data.query);
     return data.query;
   }
@@ -62,7 +61,7 @@ class DemoRouter {
 @routerClass()
 class DemoRouter {
   @routerMapper(server, Server.GET, "/:id/:type")
-  async getData(data: RouteCallbackParams) {
+  async getData(data: RouteCallbackParams, ctx: RouteCallbackCtx) {
     return {
       query: data.query,
       params: data.params
