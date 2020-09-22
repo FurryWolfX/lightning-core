@@ -1,13 +1,11 @@
 import * as http from "http";
 import * as path from "path";
-import * as fs from "fs";
 import * as querystring from "querystring";
 import * as urlLib from "url";
 import { IncomingMessage, ServerResponse } from "http";
 import { IncomingForm } from "formidable";
 import getIpArray from "../utils/ip";
 import { parseDynamicRoute } from "../utils/routeUtils";
-import mime from "../file/mime";
 import { handleStaticFile } from "../file/static";
 
 export interface ServerConfig {
@@ -37,11 +35,13 @@ export interface Logger {
   error: Function;
 }
 
+export type RequestInterceptor = (req: IncomingMessage, res: ServerResponse) => Promise<void>;
+
 export default class Server {
   private instance: http.Server;
   private routeMap: Map<string, RouteCallbackFn> = new Map();
+  private requestInterceptor: RequestInterceptor;
   public readonly config: ServerConfig;
-  public responseHeaders: KV<string>;
   public logger: Logger = {
     log: console.log,
     warn: console.warn,
@@ -58,12 +58,8 @@ export default class Server {
     this.routeMap.set(`${method}@${path}`, callback);
   }
 
-  /**
-   * 自定义responseHeaders
-   * @param responseHeaders
-   */
-  setResponseHeaders(responseHeaders: KV<string>) {
-    this.responseHeaders = responseHeaders;
+  setRequestInterceptor(requestInterceptor: RequestInterceptor) {
+    this.requestInterceptor = requestInterceptor;
   }
 
   /**
@@ -78,7 +74,7 @@ export default class Server {
     if (this.instance) {
       console.error("server already started");
     } else {
-      this.instance = http.createServer((req, res) => {
+      this.instance = http.createServer(async (req, res) => {
         // CORS Header
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Credentials", "true");
@@ -88,11 +84,9 @@ export default class Server {
           "Content-Type,Content-Length,Origin,Accept,X-Requested-With,X-Powered-By"
         );
         res.setHeader("X-Powered-By", "Lightning Framework 5");
-        // 设置用户自定义的Headers
-        if (this.responseHeaders) {
-          Object.keys(this.responseHeaders).forEach(k => {
-            res.setHeader(k, this.responseHeaders[k]);
-          });
+
+        if (typeof this.requestInterceptor === "function") {
+          await this.requestInterceptor(req, res);
         }
 
         const form = new IncomingForm();

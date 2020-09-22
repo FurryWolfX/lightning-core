@@ -9,6 +9,9 @@ const server = new Server({ port: 5000 });
 // server.addRoute(Server.POST, "/", async data => {
 //   return data.fields;
 // });
+// server.setRequestInterceptor(async (req, res) => {
+//   res.setHeader("test", "test");
+// });
 server.start();
 
 @routerClass()

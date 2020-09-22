@@ -23,9 +23,9 @@ server.setLogger({
   warn: console.warn,
   error: console.error
 });
-自定义responseHeaders
-server.setResponseHeaders({
-  token: "your-token"
+自定义response header
+server.setRequestInterceptor(async (req, res) => {
+  res.setHeader("test", "test");
 });
 */
 server.addRoute(Server.GET, "/test", async (data: RouteCallbackParams, ctx: RouteCallbackCtx) => {
