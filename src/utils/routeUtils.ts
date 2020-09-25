@@ -9,8 +9,9 @@ export function parseDynamicRoute(routeMap: Map<string, RouteCallbackFn>, path: 
       // 将restful中冒号开头的替换，便于正则匹配
       return "(.*)";
     });
-    const result = new RegExp(regStr).exec(path);
-    if (result && result.length > 1) {
+
+    const result = new RegExp(regStr + "$").exec(path);
+    if (result && result.length) {
       const params: KV<any> = {};
       for (let i = 1; i < result.length; i++) {
         const value = result[i];
