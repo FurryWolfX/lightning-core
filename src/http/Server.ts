@@ -38,9 +38,9 @@ export interface Logger {
 export type RequestInterceptor = (req: IncomingMessage, res: ServerResponse) => Promise<void>;
 
 export default class Server {
-  private instance: http.Server;
+  private instance: http.Server | null = null;
   private routeMap: Map<string, RouteCallbackFn> = new Map();
-  private requestInterceptor: RequestInterceptor;
+  private requestInterceptor: RequestInterceptor | null = null;
   public readonly config: ServerConfig;
   public logger: Logger = {
     log: console.log,
@@ -91,11 +91,9 @@ export default class Server {
 
         const form = new IncomingForm();
         form.parse(req, async (err, fields, files) => {
-          const { pathname, query: qs } = urlLib.parse(req.url);
-          const query = querystring.parse(qs);
-
+          const { pathname, query: qs } = urlLib.parse(req.url as string);
+          const query = querystring.parse(qs as string);
           this.logger.log("pathname: " + pathname);
-
           // 寻找路由定义
           const route = parseDynamicRoute(this.routeMap, `${req.method}@${pathname}`);
           if (route) {
@@ -108,10 +106,10 @@ export default class Server {
             if (typeof routeCallback === "function") {
               try {
                 const result = await routeCallback({ fields, files, query, params: route.params }, { req, res });
-                if (typeof result === "string") {
-                  res.end(result);
-                } else {
+                if (typeof result === "object") {
                   res.end(JSON.stringify(result));
+                } else {
+                  res.end(result);
                 }
               } catch (e) {
                 res.statusCode = 500;
@@ -122,10 +120,10 @@ export default class Server {
             // 查找静态资源
             if (this.config.staticDir) {
               // 把路径转换为系统的绝对路径
-              const realpath = path.join(this.config.staticDir, pathname);
+              const realpath = path.join(this.config.staticDir, pathname as string);
               this.logger.log("realpath: " + realpath);
               // 获取请求资源文件的后缀 用于编码格式
-              const extname = path.extname(pathname).substring(1);
+              const extname = path.extname(pathname as string).substring(1);
               handleStaticFile(req, res, realpath, extname);
             } else {
               res.statusCode = 404;

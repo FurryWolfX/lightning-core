@@ -5,7 +5,7 @@ function getIpArray(): string[] {
   const ipArray: string[] = [];
   Object.keys(ipConfig).forEach(key => {
     ipConfig[key].forEach(obj => {
-      if (obj.internal === false && obj.family === "IPv4") {
+      if (!obj.internal && obj.family === "IPv4") {
         ipArray.push(obj.address);
       }
     });
