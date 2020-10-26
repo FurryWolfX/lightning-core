@@ -40,14 +40,14 @@ server.start();
 如果你喜欢用装饰器，也可以这样使用：
 
 ```typescript
-import { Server, RouteCallbackParams, RouteCallbackCtx, routerClass, routerMapper } from "@wolfx/lightning";
+import { Server, RouteCallbackParams, RouteCallbackCtx, RouterClass, RouterMapper } from "@wolfx/lightning";
 
 const server = new Server({ port: 5000 });
 server.start();
 
-@routerClass()
+@RouterClass()
 class DemoRouter {
-  @routerMapper(server, Server.GET, "/")
+  @RouterMapper(server, Server.GET, "/")
   async getData(data: RouteCallbackParams, ctx: RouteCallbackCtx) {
     console.log(data.query);
     return data.query;
@@ -58,9 +58,9 @@ class DemoRouter {
 使用动态路由
 
 ```typescript
-@routerClass()
+@RouterClass()
 class DemoRouter {
-  @routerMapper(server, Server.GET, "/:id/:type")
+  @RouterMapper(server, Server.GET, "/:id/:type")
   async getData(data: RouteCallbackParams, ctx: RouteCallbackCtx) {
     return {
       query: data.query,

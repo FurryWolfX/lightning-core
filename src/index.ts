@@ -1,4 +1,4 @@
 import Server, { ServerConfig, RouteCallbackFn, RouteCallbackParams, RouteCallbackCtx } from "./http/Server";
-import { routerClass, routerMapper } from "./decorator";
+import { RouterClass, RouterMapper } from "./decorator";
 
-export { Server, routerClass, routerMapper, ServerConfig, RouteCallbackFn, RouteCallbackParams, RouteCallbackCtx };
+export { Server, RouterClass, RouterMapper, ServerConfig, RouteCallbackFn, RouteCallbackParams, RouteCallbackCtx };

@@ -1,6 +1,6 @@
 import { Server } from "../index";
 import { RouteCallbackParams } from "./Server";
-import { routerClass, routerMapper } from "../decorator";
+import { RouterClass, RouterMapper } from "../decorator";
 
 const server = new Server({ port: 5000 });
 // server.addRoute(Server.GET, "/test", async data => {
@@ -14,9 +14,9 @@ const server = new Server({ port: 5000 });
 // });
 server.start();
 
-@routerClass()
+@RouterClass()
 class DemoRouter {
-  @routerMapper(server, Server.GET, "/:id/:type")
+  @RouterMapper(server, Server.GET, "/:id/:type")
   async getData(data: RouteCallbackParams) {
     return data;
   }
